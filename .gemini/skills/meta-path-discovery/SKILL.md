@@ -1,37 +1,37 @@
 ---
 name: meta-path-discovery
-description: Use to automatically locate the Foundry (Core Library) root directory using recursive upward searching for .gemini/global_standard.md.
+description: 用于自动定位母库（Foundry）根目录，通过向上递归寻找 .gemini/global_standard.md 实现。
 ---
 
-# Meta Path Discovery (Foundry Locator)
+# 元路径探测 (Foundry Locator)
 
 ## Overview
-This meta-skill provides the algorithm for AI agents to locate the **Foundry Root** in any environment. It eliminates the need for hardcoded absolute paths by using recursive filesystem discovery.
+本元技能为 AI 提供了一套自动定位 **Foundry 根目录** 的算法。它通过递归的文件系统扫描，彻底消除了对物理绝对路径的依赖。
 
 ## When to Use
-- When any skill needs to reference a file in the Foundry (e.g., `patterns/`, `schemas/`).
-- During initialization to establish the `link.json` stub.
-- When `{{FOUNDRY_ROOT}}` placeholder is encountered in instructions.
+- 当任何技能需要引用母库中的文件（如 `patterns/`, `schemas/`）时。
+- 在初始化阶段建立 `link.json` 存根时。
+- 当在指令中遇到 `{{FOUNDRY_ROOT}}` 占位符时。
 
-## The Discovery Algorithm
+## 探测算法 (Discovery Algorithm)
 
-To find `{{FOUNDRY_ROOT}}`, follow these steps in order:
+为了找到 `{{FOUNDRY_ROOT}}`，请按顺序执行以下步骤：
 
-1. **Check Workspace Config**:
-   Read `.gemini/config.json` in the current working directory. If `skillPaths` points to a directory containing `.gemini/global_standard.md`, that is your **Foundry Root**.
+1. **检查工作区配置**：
+   读取当前工作目录下的 `.gemini/config.json`。如果 `skillPaths` 指向的目录包含 `.gemini/global_standard.md`，该目录即为 **Foundry 根目录**。
 
-2. **Recursive Search (The Climb)**:
-   Starting from the current working directory, search upwards for a directory containing `.gemini/global_standard.md`.
-   - **Step A**: Is `.gemini/global_standard.md` in the current dir? If yes, stop.
-   - **Step B**: Move to parent dir. Repeat Step A.
-   - **Limit**: Stop at the drive root (e.g., `C:\` or `/`).
+2. **递归向上搜索 (The Climb)**：
+   从当前目录开始，逐级向上寻找包含 `.gemini/global_standard.md` 的文件夹。
+   - **步骤 A**：当前目录有该文件吗？有则停止。
+   - **步骤 B**：移动到父目录，重复步骤 A。
+   - **限制**：抵达磁盘根目录（如 `C:\` 或 `/`）时停止。
 
-3. **Link Stub Check**:
-   Read `.gemini/link.json`. Use the `motherBasePath` value as the **Foundry Root**.
+3. **链路存根检查**：
+   读取 `.gemini/link.json` 中的 `foundryPath` 值。
 
-## Output Standard
-Once located, the agent MUST cache this path in the current session context and use it to replace all `{{FOUNDRY_ROOT}}` instances.
+## 输出标准
+一旦定位成功，AI 必须在当前会话上下文中缓存该路径，并用其替换后续所有的 `{{FOUNDRY_ROOT}}` 实例。
 
 ## Red Flags
-- Using an absolute path (e.g., `D:\code\...`) without attempting discovery.
-- Failing to verify the existence of `global_standard.md` at the target path.
+- 未执行探测直接使用绝对路径（如 `D:\code\...`）。
+- 未验证目标路径下是否存在 `global_standard.md` 关键指纹。

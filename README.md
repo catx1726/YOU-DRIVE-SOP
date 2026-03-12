@@ -1,52 +1,46 @@
 # YOU-DRIVE-SOP
 
-> **"AI Drives the Logic, You Drive the SOP."**
+> **"AI 驱动逻辑，你驱动规约。"**
 
-YOU-DRIVE-SOP is an open-source framework designed to help developers build, refine, and evolve their own AI-driven Standard Operating Procedures (SOPs). It transforms your development process into a self-evolving laboratory where every task contributes to a growing library of reusable intelligence.
-
----
-
-## 🚀 The Core Philosophy
-
-In the world of YOU-DRIVE-SOP, the AI is the engine, but you are the driver. 
-
-- **Autonomous Harvesting**: Every feature you build is a candidate for your global library.
-- **Self-Evolution**: The framework learns from your corrections and architectural decisions.
-- **Foundry & Workshop**: A central **Foundry** stores your global skills and patterns, while local **Workshops** align with these standards to ensure consistent high-quality output.
-
-## 🛠️ Getting Started
-
-### 1. Installation
-Clone this repository to use it as your **Foundry** (Core Library):
-```bash
-git clone https://github.com/your-repo/YOU-DRIVE-SOP.git
-```
-
-### 2. Linking Skills
-Register the Foundry's skills globally or within your workspace:
-```bash
-gemini skills link /path/to/YOU-DRIVE-SOP/.gemini/skills --scope workspace --consent
-```
-
-### 3. Initializing a Workshop
-Enter your project directory and align it with the Foundry:
-```bash
-activate_skill workshop-initializing
-```
-
-## 🏗️ Architecture
-
-- **`.gemini/skills/`**: The "Brain" - Atomized skills using the TDD documentation approach.
-- **`patterns/`**: The "Blueprints" - Decoupled, parameterized code snippets with full test coverage.
-- **`openspec/`**: The "Governor" - Life-cycle management for tasks, specs, and architectural decisions.
-
-## 🛡️ Production Safety
-
-Powered by **`meta-safe-executor`**, every AI operation is audited:
-- **Git Sentinel**: Auto-saves state before any write operation.
-- **Ops Changelog**: Semantic logging of every physical action.
-- **Multi-Level Rollback**: Undo any mistake with a single command.
+YOU-DRIVE-SOP 是一个开源框架，旨在帮助开发者构建、精炼并演进属于自己的 AI 驱动标准作业程序（SOP）。它将您的开发过程转化为一个自主演进的实验室，使每一项任务都能为不断增长的可重用智力库做出贡献。
 
 ---
 
-*YOU-DRIVE-SOP - Drive your intelligence.*
+## 🚀 核心哲学
+
+在 YOU-DRIVE-SOP 的世界里，AI 是引擎，而你始终是驾驶员。
+
+- **自主沉淀**：您构建的每个特性都是全球智力库的潜在候选资产。
+- **自演进**：框架会从您的更正和架构决策中持续学习。
+- **Foundry & Workshop**：中央 **Foundry (母库)** 存储您的全局技能与模式，而本地 **Workshop (工作间)** 则对齐这些标准以确保高质量产出。
+
+## 🛠️ 工具链手册
+
+### 1. OpenSpec (opsx) - 治理与生命周期管理
+OpenSpec 负责管理任务的“状态流转”，确保每一次变更都经过深思熟虑且记录在案。
+- `/opsx:propose <name>`：发起新提案。AI 将生成 Proposal (为什么做) 与 Design (怎么做)。
+- `/opsx:apply`：开始实施。AI 将根据任务清单（Tasks）按部就班地编写代码。
+- `/opsx:archive`：任务归档。这是资产沉淀的关键时刻，AI 会引导您将代码反哺给母库。
+
+### 2. Superpowers (Skills) - 肌肉与工程纪律
+Superpowers 是一系列原子化的“专家技能”，教 AI 如何保持高水准的工程习惯。
+- `activate_skill <name>`：激活特定技能（如 `meta-distiller`, `test-driven-development`）。
+- **TDD 驱动**：强制“先写测试，后写代码”，确保每一份存入母库的资产都是 100% 可运行的。
+- **安全审计**：由 `meta-safe-executor` 提供保障，记录所有物理动作并支持多级回滚。
+
+## 🏗️ 目录架构
+
+- **`.gemini/skills/`**：大脑 —— 遵循 TDD 文档标准的原子化技能库。
+- **`patterns/`**：图纸 —— 经过参数化处理、具备完整测试覆盖的代码片段。
+- **`openspec/`**：治理 —— 负责任务、规约及架构决策记录（ADR）的生命周期管理。
+
+## 🛡️ 生产安全
+
+依托 **`meta-safe-executor`**，AI 的每一次写操作都受到严密审计：
+- **Git 哨兵**：在任何写操作前自动快照当前状态。
+- **语义日志**：在 `.gemini/ops_changelog.md` 中记录每一步的意图。
+- **多级回滚**：通过一个指令即可撤销任何错误操作。
+
+---
+
+*YOU-DRIVE-SOP - 驱动你的智力资产。*

@@ -1,34 +1,34 @@
-# YOU-DRIVE-SOP: Global Behavioral Constitution
+# YOU-DRIVE-SOP：全局行为宪法 (Global Behavioral Constitution)
 
-## 1. Spatial Awareness
-- **Foundry (Core Library)**: The central repository of skills and patterns. Root detected as `{{FOUNDRY_ROOT}}`.
-- **Workshop (Local Project)**: The active development environment.
-- **Goal**: Every decoupled logic block must eventually be distilled and contributed to `{{FOUNDRY_ROOT}}/patterns/` and `{{FOUNDRY_ROOT}}/.gemini/skills/`.
+## 1. 空间认知 (Spatial Awareness)
+- **Foundry (母库)**：技能与模式的中央存储库。根路径通过 `{{FOUNDRY_ROOT}}` 自动感应。
+- **Workshop (工作间)**：当前的开发执行环境。
+- **目标**：所有经过解耦的逻辑块，最终必须提纯并反哺至母库的 `patterns/` 目录和 `.gemini/skills/` 根级。
 
-## 2. Standard Execution Flow (SOP)
+## 2. 标准执行流 (SOP Execution Flow)
 
-### A. Alignment & Discovery
-1. **[Align]**: Before starting any task, read the Workshop's `openspec/specs/env.md`. If missing, generate it based on the Foundry's `env_schema.md`.
-2. **[Search]**: Always search the Foundry's `patterns/` library before writing new code.
+### A. 对齐与检索 (Baseline)
+1. **[对齐 Align]**：启动任何任务前，优先读取 Workshop 的 `openspec/specs/env.md`。若缺失，则依据 Foundry 的 `env_schema.md` 引导生成。
+2. **[检索 Search]**：在编写新代码前，必须全局搜索 Foundry 的 `patterns/` 资产库以避免重复造轮子。
 
-### B. Development & Evolution
-1. **[Propose]**: Use `/opsx:propose` and invoke `brainstorming` to identify "Potential Contribution Points."
-2. **[Apply]**: Follow TDD standards and `logic_schema` to physically separate logic from UI.
-3. **[Distill]**: Before archiving, invoke `activate_skill meta-distiller` to extract generic logic into the Staging area (`.gemini/distill_stage/`).
-4. **[Archive]**: During `/opsx:archive`, confirm the merge of Staging assets into the Foundry and record the evolution in `decisions/`.
+### B. 开发与进化 (New Feature Evolution)
+1. **[构思 Propose]**：使用 `/opsx:propose` 时，必须调用 `brainstorming` 识别“潜在资产贡献点”。
+2. **[实现 Apply]**：强制遵循 TDD 规约与 `logic_schema`，物理上实现业务逻辑与 UI 的分离。
+3. **[提纯 Distill]**：归档前置动作。必须调用 `activate_skill meta-distiller` 将通用逻辑提取至 Staging 暂存区 (`.gemini/distill_stage/`)。
+4. **[归档 Archive]**：执行 `/opsx:archive` 时，确认 Staging 资产并入母库，并记录架构决策 (ADR)。
 
-## 3. Contribution Gate
-Every task archive MUST include an **Asset Contribution Report**:
-- **New Pattern**: List any new decoupled blueprints.
-- **New Skill**: List any new common operation protocols.
-- **Refinement**: Note any improvements to existing Foundry assets.
-- **Rationale**: If no assets were contributed, provide an architectural reason.
+## 3. 资产贡献门禁 (Contribution Gate)
+任何任务在归档前，AI 必须提交一份《资产反哺报告》：
+- **New Pattern**: 本次产出了哪些符合“三件套”标准的去业务化图纸？
+- **New Skill**: 是否生成了以 `common-` 为前缀的新技能？
+- **Refinement**: 是否对现有资产进行了优化或 Bug 修复？
+- **Rationale**: 若本次无资产贡献，必须给出合理的架构解释。
 
-## 4. Safety & Quality Gates
-- **Safe Execution**: Every write operation must be preceded by a Git snapshot and logged in the Ops Changelog via `meta-safe-executor`.
-- **Destructive Actions**: `DELETE` or `MOVE` commands require explicit user confirmation.
-- **Triplets Standard**: Patterns must include `index.ts` (logic), `index.test.ts` (Vitest), and `README.md` (contract).
-- **Decoupling**: Hardcoded project names or business-specific paths are strictly forbidden in Foundry assets.
+## 4. 安全与质量门禁 (Safety & Quality Gates)
+- **安全执行**：所有写操作必须由 `meta-safe-executor` 执行 Git 快照存盘并记录审计日志。
+- **破坏性动作**：针对 `DELETE` 或 `MOVE` 等指令，必须获得用户的显式确认。
+- **三件套标准**：Pattern 必须包含 `index.ts` (逻辑), `index.test.ts` (测试), `README.md` (契约)。
+- **业务解耦**：母库资产中严禁保留硬编码的项目名称或私有路径。
 
 ---
-*YOU-DRIVE-SOP - Drive the procedure, own the intelligence.*
+*YOU-DRIVE-SOP - 驱动规约，掌握智力。*
