@@ -35,5 +35,17 @@
 - **变量驱动**：必须使用 `{{RUNTIME_VERSION}}`, `{{TEST_COMMAND}}` 等由子库 `env.md` 定义的变量。
 - **跨栈兼容**：资产提纯流程必须兼容所有主流技术栈（Frontend, Backend, Mobile），验证引擎由子库环境指纹决定。
 
+## 6. AI 执行诚信与流程刚性 (AI Integrity & Process Rigidity)
+- **严禁模拟 (No Simulation)**：AI 禁止使用“模拟”、“示意”、“假设已完成”等措辞逃避物理操作。所有 Task 必须产生真实的物理变更。
+- **审计先行 (Audit-First)**：严禁在未更新 `.gemini/ops_changelog.md` 的情况下执行任何文件写操作。审计日志必须包含真实的本地系统时间。
+- **禁止绕过门禁 (No Merge Shortcuts)**：严禁直接在 `main` 分支执行物理合并（除非是紧急修复审计文件）。所有功能变更必须通过 `issue -> branch -> apply -> archive -> pr` 的完整闭环。
+- **任务终点线原则**：在所有 `tasks.md` 标记为 `[x]` 前，AI 严禁宣布任务成功或执行 `archive`。
+- **语言一致性**：本项目首选 **中文** 作为沟通与规约语言，确保团队理解无偏差。
+
+## 7. 跨库链路保护 (Cross-Repo Link Protection)
+- **穿透风险预警**：子库（Workshop）通过 Junction 挂载母库资产。切换分支或执行 `git clean` 前，必须物理断开（Unlink）链接，防止 Git 的清理动作穿透链路误删母库源码。
+- **强制自检**：AI 在子库执行 `git` 相关写操作前，必须首先确认当前 `.gemini/skills` 的属性。若为 `ReparsePoint`（联接点），必须提醒用户潜在的物理删除风险。
+- **恢复优先**：若发生误删，立即在母库端执行 `git restore`，严禁在子库端进行尝试性修复。
+
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*

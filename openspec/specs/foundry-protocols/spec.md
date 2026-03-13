@@ -54,21 +54,29 @@
 - **THEN** 用户通过读取 `ops_changelog.md` 中的撤销指令或 Commit ID，能够瞬间回滚。
 
 ### Requirement: 归档门禁 (openspec-changes-archive)
-归档流程 SHALL 执行管理档案与执行记录的物理分流存储。
-- **分流存储**：
-    - `Proposal/Design` 归档至 `archive/governance/`。
-    - `Ops Changelog` 归档至 `openspec/operations/archive/`。
-- **合并决策**：若发现暂存资产，必须强制询问用户是否将其并入母库。
+归档流程 SHALL 执行管理档案与执行记录的物理镜像分流存储。
+- **镜像结构**：
+    - **管理档案**：`openspec/changes/archive/[governance/]<YYYY-MM-DD-name>/`
+    - **操作审计**：`openspec/operations/archive/<YYYY-MM-DD-name>/ops_changelog.md`
+- **治理判定 (Governance)**：凡涉及全局规约、元技能重构或工具链升级的任务，必须归档至 `governance/` 子目录。
+- **日志增量性**：在任务周期内，`.gemini/ops_changelog.md` 必须保持物理增量，严禁在未备份前执行全量覆盖。
+- **PR 自动化**：归档流程必须生成符合 GitHub 标准的 PR Summary 文档。
 
-#### Scenario: 审计分离归档
-- **WHEN** 执行 `/opsx:archive`。
-- **THEN** 系统自动将任务文件夹移入治理归档区，同时将操作日志移入操作审计区。
+#### Scenario: 审计分离归档与 PR 准备
+- **WHEN** 执行 `/opsx:archive` 且该任务关联了 GitHub Issue。
+- **THEN** 系统自动将任务文件夹移入治理归档区，同时输出 PR Summary 文档。
 
-### Requirement: 链接自愈 (Link Self-Healing)
-系统 SHALL 能够自动识别并修复子库中失效的技能映射。
+### Requirement: 链接自愈协议 (Link Self-Healing)
+系统 SHALL 能够自动识别并修复子库中失效的技能映射，并强制执行物理隔离。
 - **属性识别**：必须能够通过 `ReparsePoint` 属性识别物理联接点（Junction）。
 - **幂等清理**：在重建链接前，SHALL 安全移除现有的联接点，同时严格保护 non-linked 的本地文件夹（如 `openspec-bridge`）。
 - **物理重建**：使用 `Junction` 类型重建从子库到母库技能的一对一映射。
+- **Git 隔离 (Safety)**：系统在建立物理链路后，必须强制在子库的 `.gitignore` 中增加对应的链接路径，以防止 Git 清理动作穿透链路误删母库文件。
+
+#### Scenario: 物理隔离自动注入
+- **WHEN** 执行物理链路挂载。
+- **THEN** AI 自动扫描并更新子库的 `.gitignore`，确保链路目录处于被忽略状态。
+
 
 #### Scenario: 一键修复损坏的链接
 - **WHEN** 用户发出“修复链接”或“刷新技能”指令。
