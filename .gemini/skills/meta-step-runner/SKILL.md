@@ -23,10 +23,11 @@ description: Use when a skill is marked with 'mode: step-by-step' to manage atom
 ### 1. Initialization (The Handshake)
 - **Action**: 检测到 `mode: step-by-step` 标志。
 - **Output**: 生成物理进度条文件 `.gemini/skill_progress.md`。
+- **Dependency Analysis (Upstream Logic)**: AI 必须分析步骤间的 `unlocks` 关系。例如：Step 2 依赖 Step 1 的文件产出。
 - **Prompt**: 
   > **「分步模式激活」**：
-  > 1. [ ] 步骤 A
-  > 2. [ ] 步骤 B
+  > 1. [ ] 步骤 A (已解锁)
+  > 2. [ ] 步骤 B (锁定：等待 A 完成)
   > 请确认计划并输入 `next` 开始。
 
 ### 2. Execution Loop

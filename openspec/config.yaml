@@ -1,20 +1,24 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+# Project context (High-density SOP 2.0 alignment)
+context: |
+  This project follows the YOU-DRIVE-SOP framework.
+  - Foundry Root: {{FOUNDRY_ROOT}}
+  - Security Mandate: Every file modification (CREATE, UPDATE, DELETE) MUST be executed through 'meta-safe-executor'.
+  - Distillation Mandate: Identify and extract logic patterns to '.gemini/distill_stage/' before archiving.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+# Per-artifact rules
+rules:
+  tasks:
+    - Each implementation task MUST include a 'Validation' step.
+    - Reference the 'meta-safe-executor' skill for any destructive operations.
+  proposal:
+    - Include a 'Potential Assets for Foundry' section to prep for distillation.
+  design:
+    - Clearly separate 'Business Logic' from 'Reusable Patterns'.
+
+# Skill Linkage (Ensuring sub-repo accessibility)
+skills:
+  safety: .gemini/skills/meta-safe-executor/SKILL.md
+  distiller: .gemini/skills/meta-distiller/SKILL.md
+  debugging: .gemini/skills/systematic-debugging/SKILL.md

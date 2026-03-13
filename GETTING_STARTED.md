@@ -1,77 +1,103 @@
 # YOU-DRIVE-SOP 快速入门指南
 
-欢迎使用 **YOU-DRIVE-SOP** 框架。本指南将带您完成首个 Foundry (母库) 与 Workshop (工作间) 的搭建。
-
-## 第一步：搭建 Foundry (母库)
-
-**Foundry** 是您的中央知识库，存储着所有项目共享的技能（Skills）与代码模式（Patterns）。
-
-1. **克隆模板**：
-   ```bash
-   git clone https://github.com/your-repo/YOU-DRIVE-SOP.git my-foundry
-   cd my-foundry
-   ```
-
-2. **初始化母库**：
-   ```bash
-   activate_skill foundry-initializing
-   ```
-   *此操作将建立目录结构并注入全局标准。*
-
-## 第二步：设置 Workshop (工作间)
-
-**Workshop** 是您编写实际业务代码的项目。它通过“链接”到 Foundry 来获取智力支持。
-
-1. **进入您的项目目录**：
-   ```bash
-   cd /path/to/your/project
-   ```
-
-2. **建立技能链接**：
-   ```bash
-   gemini skills link /absolute/path/to/my-foundry/.gemini/skills --scope workspace --consent
-   ```
-
-3. **执行对齐初始化**：
-   ```bash
-   activate_skill workshop-initializing
-   ```
-   *此操作将识别您的技术栈，并自动生成 GEMINI.md 以引用母库宪法。*
-
-## 第三步：首个开发自演进循环
-
-一旦链接完成，请在每一项任务中遵循以下闭环逻辑：
-
-1. **发起提案**：
-   ```bash
-   /opsx:propose my-new-feature
-   ```
-   *AI 将根据母库的图纸分析需求并生成设计。*
-
-2. **纪律化实施**：
-   ```bash
-   /opsx:apply
-   ```
-   *坚持 TDD 标准，实现逻辑与 UI 的分离。*
-
-3. **资产提纯 (核心步)**：
-   在归档前，AI 会提示您提炼通用逻辑。
-   ```bash
-   activate_skill meta-distiller
-   ```
-
-4. **归档与反哺**：
-   ```bash
-   /opsx:archive
-   ```
-   *任务圆满结束，您的母库也因此变得更强大。*
+欢迎使用 **YOU-DRIVE-SOP** 框架。本指南将带您完成从基础环境搭建到实战开发沉淀的全过程。
 
 ---
 
-## 🛡️ 最佳实践
+## 🏗️ 基础设施搭建 (Foundry Setup)
 
-- **路径动态化**：永远不要在 Skill 中硬编码路径，利用框架的自动探测能力。
-- **暂存审批**：利用 Staging 区域 (`.gemini/distill_stage/`) 在资产正式入库前进行最后的代码审查。
-- **安全第一**：确保项目处于 Git 管理下，以激活自动备份与回滚功能。
+**Foundry** 是您的中央“智力库”，存储着所有项目共享的 Skills (技能) 与 Patterns (图纸)。
 
-*祝您驱动愉快！*
+1. **克隆并进入目录**：
+   ```bash
+   git clone <repo-url> my-foundry
+   cd my-foundry
+   ```
+
+2. **内容化初始化**：
+   ```bash
+   activate_skill foundry-initializing
+   ```
+   *✓ 效果：自动创建目录并注入全局宪法与协议模板。*
+
+---
+
+## 🚦 实战路径 A：旧项目逆向提纯 (Legacy Distillation)
+
+**目标**：接手一个没有任何 SOP 记录的旧项目，将其中的高价值代码收割至母库。
+
+1. **进入子项目目录**：
+   ```bash
+   cd /path/to/legacy-project
+   ```
+
+2. **建立物理链路**：
+   ```bash
+   gemini skills link /path/to/my-foundry/.gemini/skills --scope workspace --consent
+   ```
+
+3. **对齐初始化**：
+   ```bash
+   activate_skill workshop-initializing
+   ```
+   *✓ 效果：识别技术栈，生成 link.json 并自动注入 GEMINI.md 标准。*
+
+4. **开启逆向识别**：
+   ```bash
+   activate_skill legacy-extractor
+   ```
+   *✓ 指令链：识别基因 -> 扫描路径 -> 定位逻辑。*
+
+5. **执行原子提纯**：
+   当识别到 `src/utils/math.ts` 具有通用价值时：
+   ```bash
+   activate_skill meta-distiller
+   ```
+   *✓ 效果：在本地生成 .gemini/distill_stage/ 包含代码、测试与 Skill 描述。*
+
+6. **归档反哺**：
+   ```bash
+   /opsx:archive
+   ```
+   *✓ 效果：确认暂存资产并入母库，清理本地审计日志。*
+
+---
+
+## 🚦 实战路径 B：新功能开发闭环 (New Feature Evolution)
+
+**目标**：在一个已链接母库的项目中开发新功能，并确保产物即资产。
+
+1. **发起变更提案**：
+   ```bash
+   /opsx:propose add-api-cache
+   ```
+   *AI 将自动触发 brainstorming 并依据 foundry-protocols 生成任务列表。*
+
+2. **纪律化实施 (TDD)**：
+   ```bash
+   /opsx:apply
+   ```
+   *AI 将优先编写测试，确保逻辑与 UI 分离。*
+
+3. **任务终期提纯**：
+   在开发接近尾声时：
+   ```bash
+   activate_skill meta-distiller
+   ```
+   *✓ 效果：从 add-api-cache 任务中提取通用缓存逻辑。*
+
+4. **归档并合并资产**：
+   ```bash
+   /opsx:archive
+   ```
+   *✓ 效果：记录 ADR，任务快照归档，新资产正式进入母库。*
+
+---
+
+## 🛡️ 驾驶员守则
+
+- **始终 Git 优先**：确保您的工作区在 Git 管理下，`meta-safe-executor` 才能为您提供 100% 的回滚保障。
+- **拒绝硬编码**：在编写 Skill 时，请始终使用 `{{FOUNDRY_ROOT}}` 占位符。
+- **先审批后入库**：在 `distill_stage` 中多看一眼，确保每一份进入母库的资产都是纯净的。
+
+*Happy Distilling & Contributing!*

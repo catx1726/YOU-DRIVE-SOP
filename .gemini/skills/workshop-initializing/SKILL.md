@@ -23,11 +23,29 @@ mode: step-by-step
 ### 3. Sub-Project Workspace Initialization
 - [ ] **建立作业空间**：创建 `openspec/specs/logic.md` 与本地 `decisions/` 目录。
 
-### 4. Standard Injection
-- [ ] **注入行为宪法**：在子库根目录生成引用母库 `{{FOUNDRY_ROOT}}\.gemini\global_standard.md` 的 `GEMINI.md`。
+### 4. Dashboard Standard Injection
+- [ ] **生成看板式 GEMINI.md**：在子库根目录生成包含「🚀 快速操作看板」的 `GEMINI.md`。
+- [ ] **注入内容模板**：
+  ```markdown
+  # 🚀 YOU-DRIVE-SOP 快速操作看板
+  当前已链接母库：{{FOUNDRY_ROOT}}
 
-### 5. Final Synthesis
-- [ ] **终期质量审计**：通读初始化产物（env.md, link.json, GEMINI.md），检查路径正确性与标准对齐度，确保无分步导致的细节遗漏。
+  ## 常用指令集
+  ### 场景 A：旧项目提纯 (Legacy)
+  - `activate_skill legacy-extractor` —— 开启路径扫描与资产识别。
+  - `activate_skill meta-distiller` —— 执行逻辑提取与参数化。
+
+  ### 场景 B：新功能开发 (Feature)
+  - `/opsx:propose "功能名称"` —— 发起新功能提案。
+  - `/opsx:apply` —— 进入 TDD 实施流。
+
+  ## 行为约束
+  - 所有的 AI 操作必须遵循 [母库全局标准]({{FOUNDRY_ROOT}}\.gemini\global_standard.md)。
+  ```
+
+### 5. Final Synthesis & Interactive Handover
+- [ ] **终期质量审计**：通读初始化产物（env.md, link.json, GEMINI.md），确保路径正确。
+- [ ] **交互式引导**：AI 必须询问：『✓ 初始化已完成！您现在是想：A) 扫描旧项目（输入 A）还是 B) 开发新功能（输入 B）？』
 
 ## 链接自愈协议 (Link Self-Healing)
 当用户请求“刷新技能”、“同步母库”或“修复链接”时，必须执行以下幂等操作：

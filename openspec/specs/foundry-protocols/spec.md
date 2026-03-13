@@ -1,31 +1,33 @@
 ## ADDED Requirements
 
 ### Requirement: 环境指纹识别 (workshop-initializing)
-子库对齐 SHALL 包含链路持久化与规约同步。
-- 必须包含 Node 20.x, npm 10.x 强制标准检查。
-- 必须支持禁止读取清单（Deny-List），防止敏感配置被收割。
-- 必须包含关键依赖（如 Vue, React, Vite）的指纹识别。
-- 在初始化末尾，必须在子库根目录创建或更新 `GEMINI.md`。
-- `GEMINI.md` 必须包含对母库全局标准（Global Standard）的强制引用声明。
+子库对齐 SHALL 包含链路持久化、规约同步与高可见性的交互引导。
 - **物理链路**：必须在子库创建 `.gemini/link.json` 记录母库绝对路径。
-- **规约同步**：必须将母库的 `openspec/schemas/` 核心协议注入子库本地，确保 OpenSpec 工具能正确执行规约检查。
+- **规约同步**：必须将母库的 `openspec/schemas/` 核心协议注入子库本地。
+- **看板注入**：初始化生成的 `GEMINI.md` 必须包含「🚀 快速操作看板」，涵盖核心治理（OpenSpec）与执行（Superpowers）指令。
+- **意图引导**：初始化流程末尾必须包含一个交互式询问点，根据用户选择（如：逆向或开发）自动进入下一步逻辑。
 
-#### Scenario: 自动化宪法注入
-- **WHEN** 子库执行 `workshop-initializing` 成功挂载母库技能后。
-- **THEN** 系统自动在子库生成 `GEMINI.md`，并在其中写入：『本项目的 AI 行为流必须遵循母库全局标准 (D:\code\2026\Base-AI-Driven-Template\.gemini\global_standard.md)』。
+#### Scenario: 看板辅助驱动
+- **WHEN** 用户在子库启动 Gemini CLI。
+- **THEN** AI 自动读取 `GEMINI.md` 看板，并在欢迎语中列出：`/opsx:propose`, `legacy-extractor`, `meta-rollback` 等常用指令。
 
-#### Scenario: 跨库规约可见性
-- **WHEN** 子库执行对齐流程。
-- **THEN** 系统自动生成 `link.json`，并同步母库的 `openspec/schemas/`（模板）与 `openspec/specs/foundry-protocols/`（主规约）至子库对应目录，确保子库 OpenSpec 工具能正确加载全局规约。
+#### Scenario: 初始化的“新手村”引导
+- **WHEN** `workshop-initializing` 执行完毕。
+- **THEN** AI 暂停并提问：『您现在是想扫描旧项目（输入 A）还是开发新功能（输入 B）？』，并根据响应展示第一条指令的操作细节。
 
 ### Requirement: 逻辑提纯协议 (logic_schema)
-逻辑提纯 SHALL 具备全局唯一入口并执行标准化存储。
+逻辑提纯 SHALL 具备全局唯一入口并包含强制性的双重验证（Double Verification）流程。
 - **唯一执行引擎**：母库体系内所有的资产收割、逻辑提炼动作必须由 `meta-distiller` 技能统一执行。
 - **物理标准**：存入 `patterns/` 的每个资产必须包含 `index.ts`, `index.test.ts`, `README.md`。
-- **废弃项**：废弃在子库 `openspec/specs/logic.md` 中存储具体代码实现的模式。该文件仅用于逻辑描述，不作为代码资产载体。
-- **联动引用**：生成的 `common-` 技能必须包含指向对应 `patterns/` 物理文件的 Markdown 链接。
+- **本地预验**：在提纯至 Staging 阶段，必须在当前 Workshop 环境下通过所有配套测试。
+- **母库复验**：在并入母库（Accept）阶段，必须在母库环境下再次通过测试。
+- **零污染契约**：母库 `patterns/` 的唯一写入条件是复验通过。若复验失败，系统必须执行原子级回退，严禁保留未验证的代码片段。
 - **参数化**：所有项目特定词汇必须根据 `env.md` 替换为 `{{VAR_NAME}}`。
 - **丰满度标准**：生成的文档必须详实，涵盖 Spec 定义的所有功能点。
+
+#### Scenario: 严苛的入库考试
+- **WHEN** 执行资产入库动作。
+- **THEN** AI 自动执行物理迁移 -> 母库环境测试。若测试失败（如：发现由于 Node 20 版本导致的 API 不兼容），AI 必须报告：『复验失败：[错误详情]。正在撤回入库动作...』，并将资产恢复至子库 Staging 区。
 
 #### Scenario: 从旧项目逆向收割
 - **WHEN** AI 使用 `legacy-extractor` 识别出一段高价值业务代码。
@@ -102,16 +104,21 @@
 - **WHEN** 在一个新的 Linux 环境下部署本库。
 - **THEN** AI 自动识别出当前的母库根目录，无需用户修改 Skill 源码。
 
+### Requirement: 技能文档规约 (writing-skills)
+技能编写 SHALL 追求高浓度、严逻辑与全视角。
+- **结构化强制**：复杂技能必须包含：
+    - **Boundaries (边界)**：明确说明该技能“不解决什么”以及“执行前置条件”。
+    - **The Stance (姿态)**：定义 AI 执行时的思维模式（如：严谨的审计员、好奇的探索者）。
+    - **Step-by-Step Workflow**：带有进度存根的任务列表。
+    - **Patterns & Anti-Patterns**：提供具体的正反面案例对比。
+    - **Final Audit**：定义产物自检项。
+- **分步生成**：技能的创建与重构必须遵循“步进增长”模式，每章节需经人工审核逻辑。
+
 ### Requirement: 文档亲和力 (Documentation Affinity)
-开源文档 SHALL 兼顾国际化展示与本地化深度。
-- **中文优先**：在针对中文用户的分发版本或主仓库中，核心逻辑说明必须包含准确的中文翻译。
-- **术语对照**：文档必须提供关键工程术语的对照表（如：Distillation -> 提纯）。
+操作手册 SHALL 具备场景感知能力。
+- **路径分流**：README 必须清晰划分“Legacy (旧项目)”与“Feature (新功能)”两条核心操作链路。
+- **指令可视化**：手册中必须展示完整的指令链示例（Instruction Chains）。
 
-### Requirement: 工具链透传 (Toolchain Disclosure)
-README 与入门指南 SHALL 完整覆盖核心工具的操作逻辑。
-- **OpenSpec 指引**：必须解释 Propose -> Apply -> Archive 的状态流转。
-- **Superpowers 指引**：必须解释 Skill 的激活方式（activate_skill）及 TDD 强制要求。
-
-#### Scenario: 新手快速驱动
-- **WHEN** 用户首次打开 README。
-- **THEN** 用户能通过文档快速区分“什么是治理（OpenSpec）”和“什么是执行（Superpowers）”，并能找到第一条该输入的指令。
+#### Scenario: 构建高浓度元技能
+- **WHEN** AI 编写一个新的元技能（如 `meta-distiller`）。
+- **THEN** AI 不再直接输出全文，而是先定义姿态与边界，在获得用户对逻辑严密性的认可后，再分步细化后续章节。

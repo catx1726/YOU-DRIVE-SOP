@@ -18,6 +18,7 @@ description: Use when archiving a completed change or task, capturing the sessio
 ### 1. Pre-Archive Audit
 - 执行 `openspec list` 获取活跃任务清单。
 - **Staging Check**: 扫描 `.gemini/distill_stage/` 暂存资产。
+- **Re-verification Check**: 若检测到暂存资产，AI 必须确认其是否已通过 `meta-distiller` 定义的“母库复验”。未通过复验（即测试未全绿）的资产严禁执行合并入库。
 - **Ops Check**: 读取子库本地 `.gemini/ops_changelog.md`。
 
 ### 2. Archiving Process

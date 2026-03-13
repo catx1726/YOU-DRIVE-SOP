@@ -30,5 +30,10 @@
 - **三件套标准**：Pattern 必须包含 `index.ts` (逻辑), `index.test.ts` (测试), `README.md` (契约)。
 - **业务解耦**：母库资产中严禁保留硬编码的项目名称或私有路径。
 
+## 5. 环境抽象原则 (Environment Abstraction)
+- **禁止硬编码**：严禁在技能（Skill）或图纸（Pattern）中硬编码具体的运行版本（如 Node 20, Python 3.11）。
+- **变量驱动**：必须使用 `{{RUNTIME_VERSION}}`, `{{TEST_COMMAND}}` 等由子库 `env.md` 定义的变量。
+- **跨栈兼容**：资产提纯流程必须兼容所有主流技术栈（Frontend, Backend, Mobile），验证引擎由子库环境指纹决定。
+
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*

@@ -14,6 +14,6 @@
 - [x] 创建 ADR `016-content-driven-initialization.md`。
 
 ## 4. 验证与归档 (Archive)
-- [ ] 执行全量初始化模拟验证。
+- [x] 执行全量初始化模拟验证。
 - [x] 开启 `meta-safe-executor` 记录全程。
-- [ ] 执行 `/opsx:archive`。
+- [x] 执行 `/opsx:archive`。
