@@ -11,6 +11,11 @@ mode: step-by-step
 
 ## Implementation Workflow (Step-by-Step)
 
+### 0. Upstream Deep-Dive (Source-Level Alignment)
+- [ ] **探测上游引擎**：自动检查 `tools/OpenSpec/` 与 `tools/superpowers/` 物理目录。
+- [ ] **物理通读规约**：AI 必须执行 `read_file` 动作，通读 `tools/OpenSpec/schemas/` 下的 `.yaml` 定义与 `tools/superpowers/skills/` 的目录结构。
+- [ ] **同步智力血统**：AI 必须向用户总结当前本地上游引擎的版本特性，并确认母库的 `openspec/schemas/` 与上游标准 100% 物理兼容。
+
 ### 1. Structure Initialization
 - [ ] **建立物理基座**：创建 `.gemini/skills/`、`openspec/decisions/`、`openspec/schemas/` 以及 `patterns/` 目录。
 - [ ] **物理去冗余**：确保 `skills/` 下无 `meta/` 或 `common/` 等二级目录，维持扁平化架构。

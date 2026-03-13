@@ -54,7 +54,11 @@ mode: step-by-step
     Closes #ISSUE_ID
     ```
 
-### 5. Dashboard Standard Injection
+### 5. Foundry Manual Alignment (Contract Handshake)
+- [ ] **物理通读母库手册**：AI 必须执行 `read_file {{FOUNDRY_ROOT}}/SOP_CORE_MANUAL.md`。
+- [ ] **注入规约意识**：AI 必须向用户报告：『已同步母库 SOP 2.0 规约。我已理解“逻辑刚性”、“资产循环”与“人机协作协议”。』
+
+### 6. Dashboard Standard Injection
 - [ ] **生成看板式 GEMINI.md**：在子库根目录生成包含「🚀 快速操作看板」的 `GEMINI.md`。
 - [ ] **注入内容模板**：
   ```markdown

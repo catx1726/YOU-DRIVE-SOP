@@ -129,6 +129,12 @@ YOU-DRIVE-SOP 的核心竞争力在于其**自演进能力**：
 2. **Constitutional Alignment**：我是否已读取 `.gemini/global_standard.md`？
 3. **Audit Readiness**：我是否已定位 `.gemini/ops_changelog.md` 并准备好记录动作？
 
+### 4.3 智力继承模型 (Inheritance Model)
+本体系通过物理分层实现高效的规约对齐：
+- **母库端 (Foundry)**：通过 `foundry-initializing` 执行“源码级对齐”，深度阅读 `tools/` 下的上游引擎源码。
+- **子库端 (Workshop)**：通过 `workshop-initializing` 执行“契约级对齐”，强制读取母库的 `SOP_CORE_MANUAL.md`。
+- **价值**：确保了规约的单点维护与全链路同步。
+
 ---
 
 ## 结语：迈向自主演进的智力实验室
