@@ -25,6 +25,10 @@
 | 09:37 | UPDATE | `common-uniapp-vue2/SKILL.md` | 注入分包路由同步及 VCS (GitHub) 自动化动作。 | `git checkout HEAD^ .gemini/skills/common-uniapp-vue2/SKILL.md` |
 | 09:40 | DELETE | `SOP1` | 物理移除旧项目库，逻辑已全量转生至 SOP 2.0 领域插件。 | `git checkout HEAD SOP1` |
 | 09:42 | UPDATE | `.gemini/ops_changelog.md` | 补齐由于架构升级导致的缺失审计日志。 | N/A |
+| 09:55 | CREATE | `openspec/config_foundry.yaml` | 建立母库配置模版，作为子库 Bootstrapping 的基准。 | `rm openspec/config_foundry.yaml` |
+| 09:58 | UPDATE | `workshop-initializing/SKILL.md` | 注入工具链探测、OpenSpec 初始化及配置自动 Patch 逻辑。 | `git checkout HEAD^ .gemini/skills/workshop-initializing/SKILL.md` |
+| 10:06 | FIX | `workshop-initializing/SKILL.md` | 修正 OpenSpec 安装指令，彻底对齐真实包名 `@fission-ai/openspec`。 | `git checkout HEAD^ .gemini/skills/workshop-initializing/SKILL.md` |
+| 10:08 | UPDATE | `.gemini/ops_changelog.md` | 记录「工具链自愈与 OpenSpec 包名修正」流水。 | N/A |
 
 ### 架构影响
 - **环境隔离性**: 显著增强。技能不再依赖特定技术栈版本。

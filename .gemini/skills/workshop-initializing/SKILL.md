@@ -11,13 +11,20 @@ mode: step-by-step
 
 ## Implementation Workflow (Step-by-Step)
 
-### 1. Link Establishing & Permission Check
+### 1. Toolchain & Runtime Pre-check
+- [ ] **OpenSpec & GitHub CLI 探测**：
+  - **ACTION**：检查 `openspec --version` 和 `gh --version`。
+  - **RECOVERY**：若未安装，AI 提示：『请安装 OpenSpec (`npm install -g @fission-ai/openspec@latest`) 和 GitHub CLI 以开启全自动 Issue 闭环。』
 - [ ] **Windows 权限预检**：
-  - **WHEN** 运行环境为 Windows。
-  - **ACTION** 尝试创建一个临时目录链接进行验证。
-  - **RECOVERY** 若报错 `Access Denied (Error 5)`，AI 必须向用户显示：『检测到 Windows 权限受限，请确保已开启 **“开发者模式”** 或以 **“管理员身份运行”**。详细操作请参阅 `GETTING_STARTED.md` 的故障排除章节。』
+  - **ACTION**：尝试创建一个临时目录链接进行验证。
+  - **RECOVERY**：若报错 `Access Denied (Error 5)`，AI 引导用户手动开启开发者模式。
+
+### 2. Config Injection (Bootstrapping)
+- [ ] **OpenSpec 初始化与补丁**：
+  - **ACTION**：执行 `openspec init` (如果 `openspec/config.yaml` 不存在)。
+  - **PATCH**：读取母库的 `openspec/config_foundry.yaml`，并将其中的 `context`, `rules`, `skills` 合并到子库本地配置中，自动填充 `{{FOUNDRY_ROOT}}`。
 - [ ] **物理链路挂载**：执行 `gemini skills link {{FOUNDRY_ROOT}}\.gemini\skills --scope workspace --consent`。
-- [ ] **创建 link.json**：在子库根目录写入母库绝对路径存根 `{"foundryPath": "{{FOUNDRY_ROOT}}"}`。
+- [ ] **创建 link.json**：记录母库绝对路径存根。
 
 ### 2. Environmental & Spec Alignment
 - [ ] **规约影子同步**：同步母库 `{{FOUNDRY_ROOT}}\openspec\schemas\` 和 `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` 至子库。

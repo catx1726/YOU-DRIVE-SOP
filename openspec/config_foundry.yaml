@@ -1,0 +1,33 @@
+# SOP 2.0 Foundry Global Config Template (openspec_foundry.yaml)
+# Use this to patch or initialize your local openspec/config.yaml
+
+schema: spec-driven
+
+# Project context (High-density SOP 2.0 alignment)
+context: |
+  This project follows the YOU-DRIVE-SOP framework with SOP1 Legacy Bridge.
+  - Foundry Root: {{FOUNDRY_ROOT}}
+  - VCS Mandate: Use 'gh' CLI for GitHub Issue/PR automation.
+  - Workflow: Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> PR -> Close.
+  - Security Mandate: Every file modification MUST be executed through 'meta-safe-executor'.
+
+# Per-artifact rules
+rules:
+  tasks:
+    - Each implementation task MUST include a 'Validation' step.
+    - Reference the 'meta-safe-executor' skill for any destructive operations.
+    - Compliance Check: Scan for local development standards in '.ai/rules.md' and enforce them automatically.
+  proposal:
+    - Automatically create a GitHub Issue if none exists, or link to current issue.
+    - Automation: 'git checkout -b issue-N' MUST be done before implementation.
+    - Include a 'Potential Assets for Foundry' section to prep for distillation.
+  archive:
+    - Closure: Automatically generate PR description and link to archived assets.
+    - Decision: Mandatory creation of ADR in 'openspec/decisions/' during archive.
+
+# Skill Linkage (Standard SOP 2.0 Skills)
+skills:
+  safety: {{FOUNDRY_ROOT}}/.gemini/skills/meta-safe-executor/SKILL.md
+  distiller: {{FOUNDRY_ROOT}}/.gemini/skills/meta-distiller/SKILL.md
+  debugging: {{FOUNDRY_ROOT}}/.gemini/skills/systematic-debugging/SKILL.md
+  uniapp_vue2: {{FOUNDRY_ROOT}}/.gemini/skills/common-uniapp-vue2/SKILL.md
