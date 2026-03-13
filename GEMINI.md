@@ -6,6 +6,21 @@
 
 ---
 
+## 🛠️ AI 登舰自检清单 (AI Handover Checklist)
+
+### 0. 启动分析 (Boot Sequence) —— **强制执行**
+当你首次进入此工作区时，你**必须**执行以下动作：
+1. **分析 `SOP_CORE_MANUAL.md`**：理解四层治理架构（宪法、配置、协议、技能）。
+2. **状态汇报**：向驾驶员汇报当前工作区的规约对齐状态与物理健康。
+3. **审计对齐**：定位 `.gemini/ops_changelog.md` 并准备记录意图。
+
+### 1. 基础映射 (Basic Mapping)
+- [ ] 我是否已读取 `.gemini/global_standard.md`？
+- [ ] 我是否已定位母库 (Foundry) 的 `patterns/` 目录？
+- [ ] 我是否已准备好通过 `meta-safe-executor` 执行写操作？
+
+---
+
 ## 🚦 快速操作看板 (Rapid Action Dashboard)
 
 作为 AI 引擎，你可以通过以下指令链快速响应驾驶员（用户）的需求：
@@ -20,7 +35,7 @@
 - **系统调试**：`activate_skill systematic-debugging` —— 基于规约的根因分析。
 
 ### 3. 健康自检报告
-- **指令**：『请根据 `SOP_CORE_MANUAL.md` 的规范，执行母库物理健康自检。』
+- **指令**：『请根据 `SOP_CORE_MANUAL.md` 的规范，执行母库物理健康自检报告。』
 
 ---
 
@@ -32,15 +47,6 @@
 2.  **核心手册 (`SOP_CORE_MANUAL.md`)**：详细阐述了本系统的逻辑刚性、资产循环与人机协议。
 3.  **配置库 (`openspec/config.yaml`)**：定义了当前项目的自动化规则与工具链绑定。
 4.  **审计日志 (`.gemini/ops_changelog.md`)**：你必须实时记录动作的物理轨迹。
-
----
-
-## 🛠️ AI 登舰自检清单 (AI Handover Checklist)
-
-在新会话启动后，请立即确认：
-- [ ] 我是否已读取 `.gemini/global_standard.md`？
-- [ ] 我是否已定位母库 (Foundry) 的 `patterns/` 目录？
-- [ ] 我是否已准备好通过 `meta-safe-executor` 执行写操作？
 
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*
