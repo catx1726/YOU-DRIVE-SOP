@@ -48,8 +48,12 @@ mode: step-by-step
 
 - [ ] **编写资产说明**：生成 `README.md`，明确契约与安装依赖。
 
-### 3. Knowledge Distillation
+### 3. Knowledge Distillation & Reflection
 - [ ] **生成 Skill 初稿**：在 `.gemini/distill_stage/skills/` 生成 `common-<name>.md`。
+- [ ] **自动生成任务总结 (Reflection)**：基于 SOP1 的总结模型，自动生成包含元数据的 Markdown 总结：
+  - **Metadata**: 自动填充 `task_id`, `type`, `affected_files`。
+  - **Knowledge Points**: 总结本次任务中涉及的架构决策与防御式编程实现。
+  - **Lessons Learned**: 记录本项目中容易被忽略的细节（如：路由同步是否完成）。
 - [ ] **注入引用硬链接**：在 Skill 文档中链接至母库预期的物理路径。
 
 ### 4. Local Verification (Pre-verify)

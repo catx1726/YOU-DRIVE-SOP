@@ -2,23 +2,23 @@ schema: spec-driven
 
 # Project context (High-density SOP 2.0 alignment)
 context: |
-  This project follows the YOU-DRIVE-SOP framework.
-  - Foundry Root: {{FOUNDRY_ROOT}}
-  - Security Mandate: Every file modification (CREATE, UPDATE, DELETE) MUST be executed through 'meta-safe-executor'.
-  - Distillation Mandate: Identify and extract logic patterns to '.gemini/distill_stage/' before archiving.
+  This project follows the YOU-DRIVE-SOP framework with SOP1 Legacy Bridge.
+  - VCS Mandate: Use 'gh' CLI for GitHub Issue/PR automation.
+  - Workflow: Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> PR -> Close.
+  - Security Mandate: Every file modification MUST be through 'meta-safe-executor'.
 
 # Per-artifact rules
 rules:
-  tasks:
-    - Each implementation task MUST include a 'Validation' step.
-    - Reference the 'meta-safe-executor' skill for any destructive operations.
   proposal:
-    - Include a 'Potential Assets for Foundry' section to prep for distillation.
-  design:
-    - Clearly separate 'Business Logic' from 'Reusable Patterns'.
+    - Automatically create a GitHub Issue if none exists, or link to current issue.
+    - Automation: 'git checkout -b issue-N' MUST be done before implementation.
+  archive:
+    - Closure: Automatically generate PR description and link to archived assets.
+    - Decision: Mandatory creation of ADR in 'openspec/decisions/' during archive.
 
 # Skill Linkage (Ensuring sub-repo accessibility)
 skills:
   safety: .gemini/skills/meta-safe-executor/SKILL.md
   distiller: .gemini/skills/meta-distiller/SKILL.md
   debugging: .gemini/skills/systematic-debugging/SKILL.md
+  # Domain skills are linked dynamically during workshop-initializing
