@@ -22,16 +22,24 @@ description: Use when archiving a completed change or task, capturing the sessio
 - **Ops Check**: 读取子库本地 `.gemini/ops_changelog.md`。
 
 ### 2. Archiving Process
-- **Governance Move**:
+- **OpenSpec Archive Command**:
   ```bash
-  mkdir -p openspec/changes/archive/governance/
-  mv openspec/changes/<name> openspec/changes/archive/governance/YYYY-MM-DD-<name>
+  npx openspec archive "<name>" --yes
   ```
+- **Mandatory Physical Partitioning (Post-OpenSpec)**:
+  由于 `openspec` CLI 默认归档至根目录 `archive/`，AI **必须** 根据任务属性执行物理分流：
+  - **Governance Move**: 若涉及规约、决策或元技能变更，执行以下物理指令：
+    ```bash
+    mkdir -p openspec/changes/archive/governance/<YYYY-MM-DD-name>/
+    mv openspec/changes/archive/<YYYY-MM-DD-name>/* openspec/changes/archive/governance/<YYYY-MM-DD-name>/
+    Remove-Item -Path "openspec/changes/archive/<YYYY-MM-DD-name>/" -Recurse -Force
+    ```
 - **Operations Move**:
   ```bash
-  mkdir -p openspec/operations/archive/
-  mv .gemini/ops_changelog.md openspec/operations/archive/YYYY-MM-DD-<name>/
+  mkdir -p openspec/operations/archive/<YYYY-MM-DD-name>/
+  mv .gemini/ops_changelog.md openspec/operations/archive/<YYYY-MM-DD-name>/
   ```
+
 
 ### 3. Post-Archive Reporting
 - 生成存档摘要：

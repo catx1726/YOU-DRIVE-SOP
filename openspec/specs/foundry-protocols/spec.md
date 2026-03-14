@@ -58,13 +58,14 @@
 - **镜像结构**：
     - **管理档案**：`openspec/changes/archive/[governance/]<YYYY-MM-DD-name>/`
     - **操作审计**：`openspec/operations/archive/<YYYY-MM-DD-name>/ops_changelog.md`
-- **治理判定 (Governance)**：凡涉及全局规约、元技能重构或工具链升级的任务，必须归档至 `governance/` 子目录。
+- **治理判定 (Governance)**：凡涉及全局规约、元技能重构、工具链升级或架构决策的任务，必须归档至 `governance/` 子目录。
+- **分流强制性**：归档动作执行时，AI 必须校验任务属性。若判定为治理类变更而未指定 `governance/` 路径，系统必须物理阻塞并提示纠偏。
 - **日志增量性**：在任务周期内，`.gemini/ops_changelog.md` 必须保持物理增量，严禁在未备份前执行全量覆盖。
 - **PR 自动化**：归档流程必须生成符合 GitHub 标准的 PR Summary 文档。
 
-#### Scenario: 审计分离归档与 PR 准备
-- **WHEN** 执行 `/opsx:archive` 且该任务关联了 GitHub Issue。
-- **THEN** 系统自动将任务文件夹移入治理归档区，同时输出 PR Summary 文档。
+#### Scenario: 治理类资产的强制分流
+- **WHEN** 执行 `/opsx:archive` 归档一个涉及 `global_standard.md` 修改的任务。
+- **THEN** AI 自动识别其治理属性，强制将任务文件夹移入 `openspec/changes/archive/governance/` 目录，并同步输出 PR Summary 与资产反哺报告。
 
 ### Requirement: 链接自愈协议 (Link Self-Healing)
 系统 SHALL 能够自动识别并修复子库中失效的技能映射，并强制执行物理隔离。
@@ -127,6 +128,12 @@
 - **路径分流**：README 必须清晰划分“Legacy (旧项目)”与“Feature (新功能)”两条核心操作链路。
 - **指令可视化**：手册中必须展示完整的指令链示例（Instruction Chains）。
 
-#### Scenario: 构建高浓度元技能
-- **WHEN** AI 编写一个新的元技能（如 `meta-distiller`）。
-- **THEN** AI 不再直接输出全文，而是先定义姿态与边界，在获得用户对逻辑严密性的认可后，再分步细化后续章节。
+### Requirement: 源码至图纸完整性 (Source-to-Pattern Integrity)
+所有从 Workshop 提纯并入 Foundry 的资产 SHALL 遵循严格的物理闭环标准。
+- **三位一体标准**：入库资产必须同时包含 `index.ts` (逻辑)、`index.test.ts` (证明) 与 `README.md` (契约)。
+- **参数化强制性**：禁止保留任何特定于子库的业务敏感词。
+- **关联 Skill**：母库必须同步生成或更新对应的 Skill 文档，并在 `Implementation` 章节物理引用 Pattern 路径。
+
+#### Scenario: 资产入库的质量门禁
+- **WHEN** AI 尝试执行 `/opsx:archive` 但暂存区缺失测试文件。
+- **THEN** 系统必须物理阻塞并提示：『资产提纯不完整：缺失 index.test.ts。请先补全测试后再执行归档。』
