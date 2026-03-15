@@ -53,11 +53,16 @@ When ready to implement, run /opsx:apply
 
    Loop through artifacts in dependency order (artifacts with no pending dependencies first):
 
-   a. **For each artifact that is `ready` (dependencies satisfied)**:
+   - **For each artifact that is `ready` (dependencies satisfied)**:
       - Get instructions:
         ```bash
         openspec instructions <artifact-id> --change "<name>" --json
         ```
+      - **CRITICAL (Tasks)**: If the artifact being created is `tasks.md`, you **MUST** ensure the output starts with a `## 1. 规约与环境自检 (Mandatory Setup)` section.
+        - This section **MUST** include checkboxes for:
+          - `1.1 确认当前分支为 issue-N 或 task/N`
+          - `1.2 确认 .gemini/ops_changelog.md 审计表格已更新`
+        - If this section is missing, the implementation phase will be **BLOCKED**.
       - The instructions JSON includes:
         - `context`: Project background (constraints for you - do NOT include in output)
         - `rules`: Artifact-specific rules (constraints for you - do NOT include in output)

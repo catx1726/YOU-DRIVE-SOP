@@ -33,7 +33,12 @@ mode: step-by-step
 - [ ] **创建 link.json**：记录母库绝对路径 `{"foundry_root": "{{FOUNDRY_ROOT}}"}`。
 
 ### 3. Environmental & Spec Alignment
-- [ ] **规约影子同步**：同步母库 `{{FOUNDRY_ROOT}}\openspec\schemas\` 和 `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` 至子库。
+- [ ] **规约全量同步 (The Full Spec Sync)**：
+  - **ACTION**：递归物理拷贝母库的以下目录至子库：
+    - `{{FOUNDRY_ROOT}}\openspec\specs\` -> `openspec\specs\`
+    - `{{FOUNDRY_ROOT}}\openspec\schemas\` -> `openspec\schemas\`
+    - `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` -> `openspec\specs\foundry-protocols\`
+  - **SAFETY**：同步前确认子库已执行 Git 快照。
 - [ ] **环境指纹扫描**：执行本地 `package.json` 与 `node -v` 扫描。
 - [ ] **偏差报告生成**：在 `openspec/specs/env.md` 中标注架构代沟，并定义高价值资产沉淀白名单。
 
@@ -74,12 +79,19 @@ mode: step-by-step
   - `/opsx:propose "功能名称"` —— 发起新功能提案。
   - `/opsx:apply` —— 进入 TDD 实施流。
 
+  ## 🚦 状态查询指令
+  您可以随时向 AI 发起以下查询，以确认物理对齐状态：
+  - 『**目前的初始化状态如何？**』 —— AI 将检查链路、宪法与协议的完整性。
+  - 『**我接下来该做什么？**』 —— AI 将根据 `ops_changelog.md` 和 `tasks.md` 给出下一步建议。
+
   ## 行为约束
   - 所有的 AI 操作必须遵循 [母库全局标准]({{FOUNDRY_ROOT}}\.gemini\global_standard.md)。
   ```
 
 ### 6. Final Synthesis & Interactive Handover
-- [ ] **终期质量审计**：通读初始化产物（env.md, link.json, GEMINI.md），确保路径正确。
+- [ ] **终期质量审计**：
+  - **ACTION**：通读初始化产物（env.md, link.json, GEMINI.md），确保路径正确。
+  - **规约审计清单 (Spec Audit)**：AI 必须扫描 `openspec/specs/` 目录，并向用户输出 Markdown 表格，列出所有已从母库同步成功的规约（包含目录名与 spec.md 存在状态）。
 - [ ] **交互式引导**：AI 必须询问：『✓ 初始化已完成！您现在是想：A) 扫描旧项目（输入 A）还是 B) 开发新功能（输入 B）？』
 
 ## 链接自愈协议 (Link Self-Healing)

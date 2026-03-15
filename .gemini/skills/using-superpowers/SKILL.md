@@ -17,6 +17,18 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 **In other environments:** Check your platform's documentation for how skills are loaded.
 
+# Initialization Check (The Onboarding Guard)
+
+在处理任何用户请求前，AI **必须** 首先通过物理探测确认当前工作区的 SOP 2.0 对齐状态：
+
+1. **探测逻辑**：检查根目录是否存在 `.gemini/global_standard.md` (宪法) 和 `.gemini/link.json` (链路)。
+2. **风险识别**：若上述文件缺失，意味着当前 AI 正处于“裸奔”状态（无规约约束、无母库链接）。
+3. **强制引导**：AI 必须立即中断后续动作，并向用户报告：
+   > **⚠️ [工作区未对齐]**
+   > 检测到当前工作区尚未完成 SOP 2.0 初始化。
+   > - 如果这是**母库 (Foundry)**：请执行 `activate_skill foundry-initializing`。
+   > - 如果这是**子库 (Workshop)**：请执行 `activate_skill workshop-initializing`。
+
 # Using Skills
 
 ## The Rule
