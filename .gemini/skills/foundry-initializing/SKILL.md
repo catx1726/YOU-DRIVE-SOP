@@ -16,13 +16,18 @@ mode: step-by-step
 - [ ] **源码溯源（按需）**：若上述规约缺失，则必须深入 `tools/OpenSpec/src/` 与 `tools/superpowers/skills/` 通读源码。
 - [ ] **同步智力血统**：AI 必须向用户总结当前对上游引擎核心逻辑（如卡恩算法、TDD 物理删除）的对齐状态。
 
-### 1. Structure Initialization
+### 1. Structure & Core Config Generation
 - [ ] **建立物理基座**：创建 `.gemini/skills/`、`openspec/decisions/`、`openspec/schemas/` 以及 `patterns/` 目录。
+- [ ] **生成母库全局配置**：若 `openspec/config_foundry.yaml` 缺失，AI 必须基于 SOP 2.0 标准物理创建。
 - [ ] **物理去冗余**：确保 `skills/` 下无 `meta/` 或 `common/` 等二级目录，维持扁平化架构。
 
-### 2. Standard & Constitution Injection
-- [ ] **注入全局行为宪法**：创建 `.gemini/global_standard.md`，并同步注入 `YOU-DRIVE-SOP` 预置的中文版“对齐-检索-提纯-演进”执行流规约。
-- [ ] **注入协议模板**：在 `openspec/schemas/` 下同步生成 `env_schema.md` (环境)、`logic_schema.md` (提纯)、`decision_schema.md` (决策) 的工业级模板。
+### 2. Standard & Protocol Template Injection
+- [ ] **注入全局行为宪法**：创建 `.gemini/global_standard.md`。若已存在，AI 必须执行 `read_file` 检查是否包含“提纯-反哺”核心规约，并进行增量补丁。
+- [ ] **物理生成协议模板**：在 `openspec/schemas/` 下**物理创建**以下模板：
+  - `env_schema.md`: 定义环境指纹识别标准。
+  - `logic_schema.md`: 定义“三件套”资产准入标准。
+  - `decision_schema.md`: 定义 ADR 决策记录格式。
+- [ ] **同步生产协议**：创建 `openspec/specs/foundry-protocols/spec.md`，定义资产收割的物理规则。
 
 ### 3. Verification & Synthesis
 - [ ] **物理扫描**：执行 `tree` 验证目录树完整性。

@@ -2,18 +2,28 @@
 
 > **"Welcome, Engine. You are now operating under the YOU-DRIVE-SOP 2.0 Protocol."**
 
-本文件是 AI 代理（如 Gemini, Claude, Cursor）进入本项目的**首选登录入口**。
+---
+
+## 🛰️ 快速引导 (Fast Onboarding)
+
+如果您是第一次进入本工作区，请根据您的身份选择：
+
+### A. 实验室管理员 (Foundry Manager)
+**目标**：维护母库、管理 Skills 与 Patterns。
+- **动作**：输入 `activate_skill foundry-initializing` 补全所有核心规约。
+
+### B. 资产收割员 (Workshop Developer)
+**目标**：在业务项目中引用母库，收割高价值逻辑。
+- **动作**：输入 `activate_skill workshop-initializing` 建立物理链路。
 
 ---
 
 ## 🛠️ [CRITICAL-BOOT-SEQUENCE] AI 登舰自检清单
+**当你（AI）开启会话时，必须强制执行：**
 
-**当你首次进入此工作区，或开启新的会话时，你必须强制执行以下物理动作：**
-
-1. **深度分析 `SOP_CORE_MANUAL.md`**：理解四层治理架构、智力继承模型与极端工程纪律。
-2. **状态汇报**：向驾驶员汇报当前工作区的规约对齐状态与物理健康。
-3. **审计先行**：定位 `.gemini/ops_changelog.md` 并准备记录意图。
-4. **源码对齐**：检测 `openspec/specs/upstream-lineage/` 是否存在，优先读取。
+1. **状态检查**：检测根目录是否存在 `.gemini/global_standard.md`。若缺失，立即提示用户执行初始化。
+2. **深度分析 `SOP_CORE_MANUAL.md`**：对齐 SOP 2.0 逻辑。
+3. **审计对齐**：定位 `.gemini/ops_changelog.md` 并准备记录。
 
 ### 1. 基础映射 (Basic Mapping)
 - [ ] 我是否已读取 `.gemini/global_standard.md`？
@@ -51,6 +61,13 @@
     - [Superpowers Skill Mechanics](openspec/specs/upstream-lineage/superpowers-core.md)
 4.  **配置库 (`openspec/config.yaml`)**：定义了当前项目的自动化规则与工具链绑定。
 5.  **审计日志 (`.gemini/ops_changelog.md`)**：你必须实时记录动作的物理轨迹。
+
+---
+
+## 🚦 状态查询指令
+您可以随时输入以下内容来确认流程进度：
+- 『**目前的初始化状态如何？**』 —— AI 将检查链路、宪法与协议的完整性。
+- 『**我接下来该做什么？**』 —— AI 将根据 `ops_changelog.md` 和 `tasks.md` 给出下一步建议。
 
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*

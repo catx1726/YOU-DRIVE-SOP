@@ -20,17 +20,17 @@ mode: step-by-step
   - **ACTION**：尝试创建一个临时目录链接进行验证。
   - **RECOVERY**：若报错 `Access Denied (Error 5)`，AI 引导用户手动开启开发者模式。详细操作请参阅 `GETTING_STARTED.md` 的故障排除章节。
 
-### 2. Config Injection (Bootstrapping)
+### 2. Config Injection & Foundry Root Discovery
+- [ ] **Foundry Root 感应 (The Path-Discovery Handshake)**：
+  - **ACTION**：AI 优先通过 `read_file .gemini/link.json` (如果存在) 获取 `foundry_root`。
+  - **RECOVERY**：若不存在，AI 必须尝试向上递归寻找包含 `.gemini/global_standard.md` 的目录作为 `{{FOUNDRY_ROOT}}`。
+  - **FALLBACK**：若探测失败，AI 必须使用 `ask_user` 询问用户：『我无法自动定位您的母库 (Foundry)，请提供母库的绝对路径：』。
 - [ ] **OpenSpec 初始化与补丁**：
   - **ACTION**：执行 `openspec init` (如果 `openspec/config.yaml` 不存在)。
-  - **PATCH**：读取母库的 `openspec/config_foundry.yaml`。执行 **Deep Merge**：
-    - 强制覆盖子库的 `context`, `rules`, `skills` 段。
-    - 将 `{{FOUNDRY_ROOT}}` 物理占位符替换为当前探测到的母库路径。
+  - **PATCH**：读取母库的 `{{FOUNDRY_ROOT}}\openspec\config_foundry.yaml`。
+  - **DYNAMIC REPLACEMENT**：将 `config_foundry.yaml` 中的所有 `{{FOUNDRY_ROOT}}` 物理占位符替换为当前探测到的真实路径，并写入子库的 `openspec/config.yaml`。
 - [ ] **物理链路挂载**：执行 `gemini skills link {{FOUNDRY_ROOT}}\.gemini\skills --scope workspace --consent`。
-- [ ] **Git 忽略加固 (Safety Isolation)**：
-  - **ACTION**：自动在子库 `.gitignore` 中增加 `.gemini/skills/` 条目。
-  - **REASON**：防止 Git 在切换分支或执行 Clean 时穿透 Junction 误删母库源文件。
-- [ ] **创建 link.json**：记录母库绝对路径存根。
+- [ ] **创建 link.json**：记录母库绝对路径 `{"foundry_root": "{{FOUNDRY_ROOT}}"}`。
 
 ### 3. Environmental & Spec Alignment
 - [ ] **规约影子同步**：同步母库 `{{FOUNDRY_ROOT}}\openspec\schemas\` 和 `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` 至子库。
