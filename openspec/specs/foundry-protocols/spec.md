@@ -55,6 +55,8 @@
 ### Requirement: 生产安全审计 (Production Safety Audit)
 系统 SHALL 对所有物理写操作执行实时审计与熔断保护。
 - **操作日志**：子库必须维护 `.gemini/ops_changelog.md` 记录每次操作的时间、意图及撤销指令。
+- **编码刚性 (UTF-8)**：所有日志写入必须强制使用 **UTF-8 (无 BOM)** 编码。
+- **Windows 执行规约**：在 Windows 环境下，AI 严禁使用 `echo >>` 等可能导致 `UTF-16LE` 编码的重定向指令写入日志。必须优先使用 `write_file` 工具或显式指定 `-Encoding UTF8` 的 PowerShell 指令。
 - **安全熔断**：破坏性操作（DELETE, MOVE）必须强制弹窗确认。
 - **Git 快照**：写操作前必须确保当前状态已 Commit。
 
