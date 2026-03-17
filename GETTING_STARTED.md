@@ -93,6 +93,16 @@
 
 ---
 
+## 🔧 日常维护 (Daily Maintenance)
+
+### 同步母库最新智力 (Foundry Sync)
+如果您处于 **Copied (静态副本)** 模式，或者母库发布了新的元规约，请执行以下指令进行增量对齐：
+```bash
+activate_skill workshop-sync
+```
+*✓ 物理逻辑：系统将从 `link.json` 定义的路径执行增量拉取（`xcopy /D`），仅更新较新或缺失的 Skills 和 Patterns，不会破坏您的本地业务代码。*
+
+---
 ## 🛠️ 故障排除 (Troubleshooting)
 
 ### 1. Windows 权限错误 (Access Denied / Error 5)

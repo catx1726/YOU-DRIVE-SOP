@@ -47,6 +47,7 @@
 
 ### 2. 核心原子技能 (Skills)
 - **资产提纯**：`activate_skill meta-distiller` —— 将逻辑从代码中剥离。
+- **智力同步**：`activate_skill workshop-sync` —— **[Copied 模式专用]** 拉取母库最新更新。
 - **物理安全**：`activate_skill meta-safe-executor` —— 写操作前的 Git 快照与审计。
 - **系统调试**：`activate_skill systematic-debugging` —— 基于规约的根因分析。
 
