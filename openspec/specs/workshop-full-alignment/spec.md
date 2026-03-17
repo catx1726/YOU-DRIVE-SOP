@@ -19,6 +19,12 @@
 - **WHEN** 所有物理拷贝动作完成
 - **THEN** 输出 Markdown 表格列出所有已成功同步的规约子目录。
 
+### Requirement: 物理链路状态透明度 (Hybrid Link Handler)
+系统 SHALL 自动识别物理映射类型并向用户汇报。
+- **Linked (实时同步)**：基于 Junction/Symlink 建立。母库变更实时生效。
+- **Copied (静态副本)**：基于物理拷贝建立。母库变更需手动重新同步。
+- **风险告知**：在 Copied 模式下，系统必须警告用户智力继承已断裂。
+
 ### Requirement: 动态状态感知 (GEMINI.md)
 系统 SHALL 在子库 `GEMINI.md` 中注入可执行的查询指令，告知用户如何通过 AI 确认当前同步状态。
 

@@ -43,8 +43,14 @@ mode: step-by-step
 - [ ] **OpenSpec 初始化与补丁**：
   - **ACTION**：执行 `openspec init` (如果 `openspec/config.yaml` 不存在)。
   - **PATCH**：读取母库的 `{{FOUNDRY_ROOT}}\openspec\config_foundry.yaml`。
-- [ ] **物理链路挂载**：执行 `gemini skills link {{FOUNDRY_ROOT}}\.gemini\skills --scope workspace --consent`。
-- [ ] **创建 link.json**：存储归一化后的绝对路径 `{"foundry_root": "{{RESOLVED_ABS_PATH}}"}`。
+- [ ] **物理链路挂载 (Link-First, Copy-Fallback)**：
+  - **TRY (Junction)**：执行 `gemini skills link {{FOUNDRY_ROOT}}\.gemini\skills --scope workspace --consent`。
+  - **IDENTIFY**：检查 `.gemini/skills` 的物理属性。
+  - **FALLBACK (Copy)**：若属性非 `ReparsePoint`（说明链接未建立，回退成了复制），AI **必须**执行以下动作：
+    1. 物理拷贝母库的 `patterns/` 目录至子库（若链接也失效）。
+    2. 在 `link.json` 中记录 `{"link_type": "copy"}`。
+    3. 在后续报告中发出 **[智力继承断裂]** 警告。
+- [ ] **创建 link.json**：存储归一化后的绝对路径 `{"foundry_root": "{{RESOLVED_ABS_PATH}}", "link_type": "junction|copy"}`。
 
 ### 3. Environmental & Spec Alignment
 - [ ] **规约全量同步 (The Full Spec Sync)**：
@@ -105,6 +111,7 @@ mode: step-by-step
 ### 6. Final Synthesis & Interactive Handover
 - [ ] **终期质量审计**：
   - **ACTION**：通读初始化产物（env.md, link.json, GEMINI.md），确保路径正确。
+  - **物理链路状态汇报**：AI **必须** 根据 `link.json` 记录，明确告知用户当前是 **Linked (实时同步)** 还是 **Copied (静态副本)** 模式。
   - **规约审计清单 (Spec Audit)**：AI 必须扫描 `openspec/specs/` 目录，并向用户输出 Markdown 表格，列出所有已从母库同步成功的规约（包含目录名与 spec.md 存在状态）。
 - [ ] **交互式引导**：AI 必须询问：『✓ 初始化已完成！您现在是想：A) 扫描旧项目（输入 A）还是 B) 开发新功能（输入 B）？』
 
