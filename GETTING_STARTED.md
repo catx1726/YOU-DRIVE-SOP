@@ -1,67 +1,83 @@
-# YOU-DRIVE-SOP 驾驶员入门指南 (Quick Start)
+# YOU-DRIVE-SOP 2.0 工业级操作手册
 
-> **"Welcome to the Cockpit. AI drives logic, YOU drive protocols."**
+> **"Standardization, Specification, Process, Automation, Sharing."**
 
-本指南将根据您的物理身份（母库管理员或业务开发者），引导您快速进入 SOP 2.0 执行流。
-
----
-
-## 🧭 路径选择：您是谁？
-
-### 🛤️ 路径 A：实验室管理员 (Foundry Manager)
-**目标**：建立智力母库，定义全局规约，沉淀原子技能与模式图纸。
-
-1. **初始化母库**：
-   ```bash
-   activate_skill foundry-initializing
-   ```
-   *✓ 效果：物理生成 .gemini/global_standard.md 与 openspec/ 核心规约种子。*
-
-2. **管理智力资产**：
-   - 在 `patterns/` 中维护通用代码图纸。
-   - 在 `.gemini/skills/` 中维护 AI 操作规约。
+本手册定义了 YOU-DRIVE-SOP 2.0 体系下的标准基础设施搭建与 12 步生产生命周期。
 
 ---
 
-### 🛤️ 路径 B：资产收割员 (Asset Harvester)
-**目标**：在具体业务项目中引用母库，通过任务开发收割高价值逻辑并反哺。
+## 🏗️ 基础设施搭建 (Foundry & Workshop Setup)
 
-1. **对齐初始化**：
-   ```bash
-   activate_skill workshop-initializing
-   ```
-   *✓ 效果：建立物理链路 (Junction)，同步母库全量规约，生成项目看板。*
-
-2. **发起任务提案**：
-   ```bash
-   /opsx:propose "feature-name"
-   ```
-   *✓ 效果：自动创建 Issue 分支并生成带自检项的任务列表。*
-
-3. **任务终期提纯**：
-   ```bash
-   activate_skill meta-distiller
-   ```
-   *✓ 效果：将业务逻辑转化为通用 Pattern 暂存。*
-
-4. **归档反哺**：
-   ```bash
-   /opsx:archive
-   ```
-   *✓ 效果：将资产正式并入母库，生成 PR 摘要。*
+1.  **Clone 本库 (母库)**：
+    ```bash
+    git clone <foundry-repo-url> foundry
+    ```
+2.  **全局安装 OpenSpec**：
+    ```bash
+    npm install -g @google/openspec
+    ```
+3.  **子库初始化引擎**：进入业务项目，执行：
+    ```bash
+    openspec init
+    ```
+    *✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。*
+4.  **子库物理对齐 (Handshake)**：在子库执行：
+    ```bash
+    activate_skill workshop-initializing
+    ```
+    *✓ 逻辑：建立物理链路 (Junction)，将母库的以下资产挂载至子库：*
+    - `openspec\config.yaml`：读取母库 `config_foundry.yaml` 并 Deep Merge。
+    - `openspec\schemas\`：同步全量协议模板。
+    - `openspec\specs\`：递归同步全量治理规约。
+    - `GEMINI.md`：注入「🚀 快速操作看板」。
+    - `AGENTS.md` & `global_standard.md`：同步代理定义与物理宪法。
+    - `.gemini\skills` & `patterns/`：挂载全量技能与图纸库。
+    - *链路存根：生成 `.gemini/link.json` 记录母库物理绝对路径。*
 
 ---
 
-## 🛠️ 故障排除 (Troubleshooting)
+## 🚦 生产生命周期 (The 12-Step Protocol)
 
-### 1. Windows 权限错误 (Access Denied / Error 5)
-在执行 `workshop-initializing` 建立物理链路时，若遇到权限报错：
-- **原因**：Windows 限制非管理员创建符号链接。
-- **方案**：进入 Windows **设置 > 隐私和安全性 > 面向开发人员**，开启 **“开发人员模式”**。
+**标准流：`Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> Merge -> Close`**
 
-### 2. 路径感应失败 (Path Discovery)
-若 AI 无法自动定位母库：
-- **方案**：手动在子库根目录创建 `.gemini/link.json`，内容为：`{"foundry_root": "C:\\绝对路径\\TO\\FOUNDRY"}`。
+1.  **讨论需求**：执行 `activate_skill brainstorming`。识别业务逻辑中的“资产贡献点”。
+2.  **确认需求**：使用 GitHub CLI 基于 `.github\ISSUE_TEMPLATE` 创建：
+    ```bash
+    gh issue create --template feature_template.md
+    ```
+    *获得 Issue ID（如 #27）。*
+3.  **创建分支**：基于 `main` 切出：
+    ```bash
+    git checkout main; git pull; git checkout -b issue-27
+    ```
+    *⚠️ 严禁在 main 直接操作。*
+4.  **细化任务**：使用 `/opsx:propose` 将需求拆分为 `proposal -> design -> tasks`。
+    *⚠️ 强制项：`tasks.md` 必须自动包含 `## 1. 规约与环境自检 (Mandatory Setup)`。*
+5.  **执行任务**：使用 `/opsx:apply` 根据任务清单按部就班地编写代码。
+6.  **快照审计 (Safe Lock)**：任何涉及文件修改的指令，操作前激活：
+    ```bash
+    activate_skill meta-safe-executor
+    ```
+    *✓ 物理记录：在 `.gemini/ops_changelog.md` 中以 Markdown 表格记录意图与 Undo_CMD。*
+7.  **质量检查 (Verify)**：执行：
+    ```bash
+    /opsx:verify
+    ```
+    *根据 specs/*.md 中定义的 Scenario (####) 逐项核对物理产出。*
+8.  **任务测试 (TDD)**：执行 `activate_skill test-driven-development`。
+    *铁律：先写失败测试，见证失败后再编写生产逻辑。*
+9.  **资产提纯 (Distill)**：**[归档前置]** 激活 `activate_skill meta-distiller`。
+    *✓ 物理产出：将通用逻辑提取至 `.gemini/distill_stage/`，确保“三件套”齐备。*
+10. **归档任务**：使用 `/opsx:archive`。
+    - **治理分流**：涉及规约/技能的变更移入 `openspec/changes/archive/governance/`。
+    - **日志入库**：将操作日志移至 `openspec/operations/archive/<YYYY-MM-DD-name>/`。
+11. **元技能编写**：激活 `activate_skill writing-skills`。
+    *根据提炼的内容在母库 `.gemini/skills/` 下编写对应的 Skill 手册。*
+12. **合并与闭环**：使用 GitHub CLI 处理：
+    ```bash
+    gh pr create --body "..."
+    git checkout main; git merge issue-27; git branch -d issue-27; gh issue close 27
+    ```
 
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*
