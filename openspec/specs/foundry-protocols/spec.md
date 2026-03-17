@@ -24,6 +24,17 @@
 - **WHEN** `workshop-initializing` 执行完毕。
 - **THEN** AI 暂停并提问：『您现在是想扫描旧项目（输入 A）还是开发新功能（输入 B）？』，并根据响应展示第一条指令的操作细节。
 
+### Requirement: 全谱系智力对齐 (Full Intelligence Alignment)
+子库与母库的同步或初始化动作 SHALL 遵循全谱系对齐原则，严禁产生“逻辑代沟”。
+- **大脑对齐**：必须同步 `.gemini/skills/` 全量原子技能。
+- **肌肉对齐**：必须同步 `patterns/` 全量代码图纸。
+- **灵魂对齐 (核心)**：必须同步 `openspec/specs/` 与 `openspec/schemas/` 治理全集。
+- **宪法对齐**：必须同步根目录下所有的宪法类文件（`global_standard.md`, `AGENTS.md`, `GETTING_STARTED.md`）。
+
+#### Scenario: 增量拉取闭环
+- **WHEN** 执行 `activate_skill workshop-sync`
+- **THEN** 系统自动扫描母库全谱系资产，并以增量方式（/D）补全子库缺失或陈旧的所有智力组件。
+
 ### Requirement: 逻辑提纯协议 (logic_schema)
 逻辑提纯 SHALL 具备全局唯一入口并包含强制性的双重验证（Double Verification）流程。
 - **唯一执行引擎**：母库体系内所有的资产收割、逻辑提炼动作必须由 `meta-distiller` 技能统一执行。

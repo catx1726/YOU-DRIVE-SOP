@@ -19,18 +19,25 @@ description: Use to manually pull the latest Skills and Patterns from the Foundr
 - [ ] **读取路径**：AI 必须首先读取 `.gemini/link.json` 中的 `foundry_root`。
 - [ ] **路径验证**：验证母库路径是否物理存在。
 
-### 2. Physical Sync (Incremental)
-AI 必须执行以下物理拷贝动作，将资产从母库推向子库。
+### 2. Physical Sync (Full Intellectual Alignment)
+AI **必须** 执行全谱系物理拷贝，确保子库的规约逻辑与母库 100% 对齐。
 
-- [ ] **同步技能库**：
+- [ ] **同步智力组件**：
   ```bash
+  # 1. 大脑与肌肉
   xcopy "{{FOUNDRY_ROOT}}\.gemini\skills" .gemini\skills /E /Y /D
-  ```
-- [ ] **同步图纸库**：
-  ```bash
   xcopy "{{FOUNDRY_ROOT}}\patterns" patterns /E /Y /D
+
+  # 2. 治理协议与模板 (防止逻辑代沟)
+  xcopy "{{FOUNDRY_ROOT}}\openspec\specs" openspec\specs /E /Y /D
+  xcopy "{{FOUNDRY_ROOT}}\openspec\schemas" openspec\schemas /E /Y /D
+
+  # 3. 根部核心看板与宪法
+  xcopy "{{FOUNDRY_ROOT}}\global_standard.md" . /Y /D
+  xcopy "{{FOUNDRY_ROOT}}\AGENTS.md" . /Y /D
+  xcopy "{{FOUNDRY_ROOT}}\GETTING_STARTED.md" . /Y /D
   ```
-  *注：`/D` 参数确保仅拷贝较新或缺失的文件，保护已存在的本地逻辑。*
+  *注：使用 `/D` 参数保护子库本地较新或已修改的非智力文件（若有）。*
 
 ### 3. Verification
 - [ ] **审计记录**：在 `.gemini/ops_changelog.md` 中记录本次同步时间与来源。

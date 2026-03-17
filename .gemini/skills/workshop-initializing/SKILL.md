@@ -54,10 +54,11 @@ mode: step-by-step
 
 ### 3. Environmental & Spec Alignment
 - [ ] **规约全量同步 (The Full Spec Sync)**：
-  - **ACTION**：递归物理拷贝母库的以下目录至子库：
+  - **ACTION**：递归物理拷贝母库的以下资产至子库：
     - `{{FOUNDRY_ROOT}}\openspec\specs\` -> `openspec\specs\`
     - `{{FOUNDRY_ROOT}}\openspec\schemas\` -> `openspec\schemas\`
     - `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` -> `openspec\specs\foundry-protocols\`
+    - **GLOBAL ASSETS**：物理拷贝母库根目录下的 `global_standard.md`, `AGENTS.md`, `GETTING_STARTED.md` 至子库根目录。
   - **SAFETY**：同步前确认子库已执行 Git 快照。
 - [ ] **环境指纹扫描**：执行本地 `package.json` 与 `node -v` 扫描。
 - [ ] **偏差报告生成**：在 `openspec/specs/env.md` 中标注架构代沟，并定义高价值资产沉淀白名单。
@@ -87,17 +88,27 @@ mode: step-by-step
 - [ ] **生成看板式 GEMINI.md**：在子库根目录生成包含「🚀 快速操作看板」的 `GEMINI.md`。
 - [ ] **注入内容模板**：
   ```markdown
-  # 🚀 YOU-DRIVE-SOP 快速操作看板
-  当前已链接母库：{{FOUNDRY_ROOT}}
+  # 🚀 YOU-DRIVE-SOP 快速操作看板 (Workshop)
+
+  > **"AI 驱动逻辑，你驱动规约。"**
+
+  当前已链接母库：`{{FOUNDRY_ROOT}}`
+  物理链路类型：`{{LINK_TYPE}}`
+
+  ## 🚥 12 步生产生命周期
+  所有的开发任务 **必须** 严格遵循 [**12 步工业级操作协议**](./GETTING_STARTED.md#🚦-生产生命周期-the-12-step-protocol)：
+  `Issue -> Branch -> Propose -> Apply -> Verify -> Distill -> Archive -> Merge`
 
   ## 常用指令集
-  ### 场景 A：旧项目提纯 (Legacy)
-  - `activate_skill legacy-extractor` —— 开启路径扫描与资产识别。
-  - `activate_skill meta-distiller` —— 执行逻辑提取与参数化。
-
-  ### 场景 B：新功能开发 (Feature)
+  ### 场景 A：新功能开发 (Feature)
   - `/opsx:propose "功能名称"` —— 发起新功能提案。
-  - `/opsx:apply` —— 进入 TDD 实施流。
+  - `/opsx:apply` —— 按照 `tasks.md` 步进执行任务。
+  - `/opsx:verify` —— 物理核对规格 Scenario 是否达成。
+
+  ### 场景 B：资产提纯与维护 (Maintenance)
+  - `activate_skill meta-distiller` —— 执行逻辑提取与参数化。
+  - `activate_skill workshop-sync` —— **[Copied 模式专用]** 拉取母库最新更新。
+  - `/opsx:archive` —— 执行智力资产反哺并归档变更。
 
   ## 🚦 状态查询指令
   您可以随时向 AI 发起以下查询，以确认物理对齐状态：
@@ -105,7 +116,7 @@ mode: step-by-step
   - 『**我接下来该做什么？**』 —— AI 将根据 `ops_changelog.md` 和 `tasks.md` 给出下一步建议。
 
   ## 行为约束
-  - 所有的 AI 操作必须遵循 [母库全局标准]({{FOUNDRY_ROOT}}\.gemini\global_standard.md)。
+  - 所有的 AI 操作必须遵循 [母库全局标准](./global_standard.md) 与 [代理协议](./AGENTS.md)。
   ```
 
 ### 6. Final Synthesis & Interactive Handover
