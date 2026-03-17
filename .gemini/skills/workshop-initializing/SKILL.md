@@ -58,7 +58,7 @@ mode: step-by-step
     - `{{FOUNDRY_ROOT}}\openspec\specs\` -> `openspec\specs\`
     - `{{FOUNDRY_ROOT}}\openspec\schemas\` -> `openspec\schemas\`
     - `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` -> `openspec\specs\foundry-protocols\`
-    - **GLOBAL ASSETS**：物理拷贝母库根目录下的 `global_standard.md`, `AGENTS.md`, `GETTING_STARTED.md` 至子库根目录。
+    - **GLOBAL ASSETS**：物理拷贝母库根目录下的 `global_standard.md`, `AGENTS.md`, `GETTING_STARTED.md`, `SOP_CORE_MANUAL.md` 至子库根目录。
   - **SAFETY**：同步前确认子库已执行 Git 快照。
 - [ ] **环境指纹扫描**：执行本地 `package.json` 与 `node -v` 扫描。
 - [ ] **偏差报告生成**：在 `openspec/specs/env.md` 中标注架构代沟，并定义高价值资产沉淀白名单。

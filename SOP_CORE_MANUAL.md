@@ -82,6 +82,12 @@ AI 的每一个动作都必须在物理上“有据可查”。
 1. **进度存根**：在 `.gemini/skill_progress.md` 中实时维护任务状态。
 2. **读回验证**：在执行长文档或代码生成的下一步前，必须显式 `read_file` 之前已完成的所有上下文，确保逻辑的一致性。
 
+### 1.4 物理安全锁 (Git Isolation Gate)
+
+针对 Windows 下 Junction 链路的物理穿透风险，系统确立了**隔离先行**原则：
+- **强制忽略**：建立链路前，必须确保 `.gitignore` 已锁定 `.gemini/skills/` 和 `patterns/`。
+- **防止误删**：杜绝因 Git 切换分支导致的母库文件物理消失。
+
 ---
 
 ## 第二章：资产全生命周期循环 —— 智力资产的提纯与反哺
@@ -170,6 +176,12 @@ YOU-DRIVE-SOP 的核心竞争力在于其**自演进能力**：
 - **子库端 (Workshop)**：通过 `workshop-initializing` 执行“契约级对齐”，强制读取母库的 `SOP_CORE_MANUAL.md`。
 - **价值**：确保了规约的单点维护与全链路同步。
 
+### 4.4 链路回退与自举模式 (Link Fallback)
+由于环境或权限限制，物理链路可能存在两种状态：
+- **Linked (实时同步)**：基于物理 Junction。母库的每一次 Skills/Patterns 更新都会瞬间反映在子库。
+- **Copied (静态副本)**：由于权限不足回退至全量复制。必须通过 `workshop-sync` 技能手动拉取母库更新。
+- **物理自举**：新子库在感知技能前，必须执行 `gemini skills link` 的“开门指令”，这是 12.5 步生产协议的物理起点。
+
 ---
 
 ## 智力资产全景循环图 (The Master Map)
@@ -185,8 +197,11 @@ YOU-DRIVE-SOP 的核心竞争力在于其**自演进能力**：
       v
 [ 资产层: patterns/ ] <--- [ 技能: .gemini/skills/ ]
       |  (物理图纸 + 执行引擎)
-      v
-[ 实战层: Workshop ] 
+      |
+      +----[ 物理链路: Junction/Copy ]----+
+      |                                  |
+      v                                  v
+[ 实战层: Workshop ] <---[ GIT 隔离墙: .gitignore ]
       |  (任务 Apply + 逻辑 Distill)
       +-----> 反哺 (Contribution) -----> [ 资产层 ]
 ```

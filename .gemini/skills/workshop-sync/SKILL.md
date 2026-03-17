@@ -36,6 +36,7 @@ AI **必须** 执行全谱系物理拷贝，确保子库的规约逻辑与母库
   xcopy "{{FOUNDRY_ROOT}}\global_standard.md" . /Y /D
   xcopy "{{FOUNDRY_ROOT}}\AGENTS.md" . /Y /D
   xcopy "{{FOUNDRY_ROOT}}\GETTING_STARTED.md" . /Y /D
+  xcopy "{{FOUNDRY_ROOT}}\SOP_CORE_MANUAL.md" . /Y /D
   ```
   *注：使用 `/D` 参数保护子库本地较新或已修改的非智力文件（若有）。*
 
