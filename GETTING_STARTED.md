@@ -26,7 +26,17 @@
     gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent
     ```
     *注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。*
-4.  **子库物理对齐 (Handshake)**：在子库执行：
+
+### 🧱 物理安全红线 (Safety Gate)
+**在执行下一步前，请确保子库已配置 `.gitignore`。**
+若子库使用 Git 管理，**必须**忽略以下路径：
+- `.gemini/skills/`
+- `patterns/`
+- `.gemini/link.json`
+*⚠️ 警告：如果不配置忽略规则，Git 在切换分支时可能会尝试删除这些物理链路，并极易穿透链路导致母库源文件被物理销毁。*
+
+4.  **子库物理对齐 (Handshake)**：
+在子库执行：
     ```bash
     activate_skill workshop-initializing
     ```

@@ -83,7 +83,8 @@
 - **属性识别**：必须能够通过 `ReparsePoint` 属性识别物理联接点（Junction）。
 - **幂等清理**：在重建链接前，SHALL 安全移除现有的联接点，同时严格保护 non-linked 的本地文件夹（如 `openspec-bridge`）。
 - **物理重建**：使用 `Junction` 类型重建从子库到母库技能的一对一映射。
-- **Git 隔离 (Safety)**：系统在建立物理链路后，必须强制在子库的 `.gitignore` 中增加对应的链接路径，以防止 Git 清理动作穿透链路误删母库文件。
+- **Git 物理隔离 (Critical Safety)**：系统在建立物理链路**前**，必须强制在子库的 `.gitignore` 中包含 `.gemini/skills/`、`patterns/` 与 `link.json`。
+- **穿透防护**：禁止 AI 在未验证 Git 隔离状态的情况下执行物理链接动作。
 
 #### Scenario: 物理隔离自动注入
 - **WHEN** 执行物理链路挂载。

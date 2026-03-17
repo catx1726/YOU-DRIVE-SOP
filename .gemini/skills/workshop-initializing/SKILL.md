@@ -11,6 +11,20 @@ mode: step-by-step
 
 ## Implementation Workflow (Step-by-Step)
 
+### 0. Git Isolation Sentinel (Physical Safety Gate)
+**⚠️ [极高风险警告]**：在子库未配置 `.gitignore` 的情况下建立 Junction 链路，会导致 Git 切换分支时物理删除母库源文件。AI **必须**在执行任何物理链接前执行此步骤。
+
+- [ ] **物理隔离注入**：
+  - **ACTION**：检测子库根目录是否存在 `.gitignore`。
+  - **INJECTION**：若不存在则创建；若已存在，AI **必须**物理追加以下规则：
+    ```text
+    # YOU-DRIVE-SOP Physical Links
+    .gemini/skills/
+    patterns/
+    .gemini/link.json
+    ```
+  - **VERIFICATION**：执行 `git check-ignore .gemini/skills/` 确认隔离已生效。若未生效，严禁执行下一步。
+
 ### 1. Toolchain & Runtime Pre-check
 - [ ] **OpenSpec & GitHub CLI 探测**：
   - **ACTION**：检查 `openspec --version` 和 `gh --version`。
