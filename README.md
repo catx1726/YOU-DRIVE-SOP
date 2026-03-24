@@ -1,96 +1,48 @@
-# YOU-DRIVE-SOP
+# YOU-DRIVE-SOP 智力演进实验室 🚀
 
-> **"AI 驱动逻辑，你驱动规约。"**
-
----
-
-## 🚀 AI 代理登舰区 (AI AGENT ONBOARDING)
-
-**如果您是首次进入本项目的 AI 代理，或者这是一个新的对话会话：**
-
-1. **必须物理读取**：根目录下的 [GEMINI.md](./GEMINI.md) (或 [AGENTS.md](./AGENTS.md))。
-2. **执行指令**：『请根据 `SOP_CORE_MANUAL.md` 的规范，执行母库物理健康自检。』
-3. **行为准则**：本项目严禁模拟，所有操作必须通过 `meta-safe-executor` 并记录审计日志。
+> **"AI 驱动逻辑，你驱动规约。"**  
+> YOU-DRIVE-SOP 2.0 是一个基于 AI 驱动的标准化智力资产管理系统。它将开发过程转化为自主演进的实验室，使每一项任务都能为不断增长的可重用智力库做出贡献。
 
 ---
 
-## 🚦 快速开始 (QUICK START)
+## 🤖 AI 代理登舰区 (AI AGENT ONBOARDING)
 
-**如果您是首次进入本项目的开发者（驾驶员）：**
+**如果您是首次进入本项目的 AI 代理，或者这是一个新的会话：**
 
-请立即阅读 [**GETTING_STARTED.md (工业级操作手册)**](./GETTING_STARTED.md)。它将引导您完成从基础设施搭建到 12 步生产生命周期的全过程。
-
----
-
-- **GitHub Repository**: [https://github.com/catx1726/YOU-DRIVE-SOP](https://github.com/catx1726/YOU-DRIVE-SOP)
-
-YOU-DRIVE-SOP 是一个开源框架，旨在帮助开发者构建、精炼并演进属于自己的 AI 驱动标准作业程序（SOP）。它将您的开发过程转化为一个自主演进的实验室，使每一项任务都能为不断增长的可重用智力库做出贡献。
+1.  **必须物理读取**：根目录下的 [**GEMINI.md**](./GEMINI.md)。
+2.  **执行自检**：严格遵循 `GEMINI.md` 中的 **[CRITICAL-BOOT-SEQUENCE]** 流程。
+3.  **对齐架构**：深入阅读唯一架构真值源 [**ARCHITECTURE.md**](./ARCHITECTURE.md)，理解“骨架-肌肉”协作模型。
+4.  **行为准则**：本项目严禁模拟，所有操作必须通过 `meta-safe-executor` 并记录审计日志。
 
 ---
 
-## 🚀 核心哲学
+## 🚦 驾驶员快速开始 (OPERATOR QUICK START)
 
-在 YOU-DRIVE-SOP 的世界里，AI 是引擎，而你始终是驾驶员。
+**如果您是首次进入本项目的开发者：**
 
-- **自主沉淀**：您构建的每个特性都是全球智力库的潜在候选资产。
-- **自演进**：框架会从您的更正和架构决策中持续学习。
-- **Foundry & Workshop**：中央 **Foundry (母库)** 存储您的全局技能与模式，而本地 **Workshop (工作间)** 则对齐这些标准以确保高质量产出。
+1.  **操作手册**：请立即阅读 [**GETTING_STARTED.md (工业级操作手册)**](./GETTING_STARTED.md)。它将引导您完成从基础设施搭建到 12 步生产生命周期的全过程。
+2.  **核心哲学**：了解我们如何通过规约锁死 AI 幻觉，请参阅 [**SOP_CORE_MANUAL.md**](./SOP_CORE_MANUAL.md)。
+3.  **架构深度透视**：关于物理架构、组件角色与资产流转逻辑，请参阅 [**ARCHITECTURE.md**](./ARCHITECTURE.md)。
 
-## 🏗️ SOP 2.0 三层架构
+---
 
-理解本系统的物理轨迹是高效“驾驶”的关键。系统由三层逻辑严密衔接而成：
+## 🏗️ 核心逻辑概览
 
-```text
-┌────────────────────────────────────────────────────────────────┐
-│  1. 实验室层 (The Foundry - 逻辑锚点)                            │
-│     职能: 定义“什么是对的”。它是智力的源头，锁死 AI 行为边界。      │
-└───────────────┬────────────────────────────────────────────────┘
-                │ (驱动 Drive)
-                v
-┌────────────────────────────────────────────────────────────────┐
-│  2. 变更层 (The Change - 动力心脏)                              │
-│     职能: 定义“该怎么做”。通过 Proposal->Specs->Tasks 拓扑流执行。 │
-└───────────────┬────────────────────────────────────────────────┘
-                │ (产出 Produce)
-                v
-┌────────────────────────────────────────────────────────────────┐
-│  3. 资产层 (The Assets - 智力结晶)                              │
-│     职能: 定义“做成了什么”。通过 meta-distiller 提纯并反哺母库。    │
-└────────────────────────────────────────────────────────────────┘
-```
+本项目深度集成了 **OpenSpec** (治理底座) 与 **Superpowers** (工程肌肉)，实现了智力资产的“识别-提纯-反哺”闭环。
 
-## 🛠️ 工具链手册
+- **Foundry (母库)**：智力的源头，存储全局 Skills 与 Patterns。
+- **Workshop (车间)**：价值的产地，对齐标准执行业务开发并回馈资产。
 
-本框架通过以下核心工具实现智力生产的自动化。所有工具的具体使用步骤已高度集成在 [**12 步工业级操作协议**](./GETTING_STARTED.md#🚦-生产生命周期-the-12-step-protocol) 中。
-
-### 1. OpenSpec (opsx) - 治理与生命周期管理
-OpenSpec 是本项目底层采用的变更管理标准。它负责管理任务的“状态流转”。
-- `/opsx:propose <name>`：发起新提案。AI 将生成 Proposal (为什么做) 与 Design (怎么做)。
-- `/opsx:apply`：开始实施。AI 将根据任务清单（Tasks）按部就班地编写代码。
-- `/opsx:sync`：同步规约。用于将子库的 Delta Spec 更新至主库。
-- `/opsx:archive`：任务归档。这是资产沉淀的关键时刻，AI 会引导您执行“资产反哺”。
-
-### 2. Superpowers (Skills) - 肌肉与工程纪律
-Superpowers 是本项目底层采用的技能增强系统。它教 AI 如何保持高水准的工程习惯。
-- `activate_skill <name>`：激活特定技能（如 `meta-distiller`, `test-driven-development`）。
-- **TDD 驱动**：强制“先写测试，后写代码”，确保资产 100% 可运行。
-- **安全审计**：由 `meta-safe-executor` 提供的 Git 自动快照记录。
-
-## 🏗️ 目录架构
-
-- **`.gemini/skills/`**：大脑 —— 遵循 TDD 文档标准的原子化技能库。
-- **`patterns/`**：图纸 —— 经过参数化处理、具备完整测试覆盖的代码片段。
-- **`openspec/`**：治理 —— 负责任务、规约及架构决策记录（ADR）的生命周期管理。
+---
 
 ## ⚖️ 致敬与上游依赖 (Credits)
 
-YOU-DRIVE-SOP 是站在巨人肩膀上的作品。我们深度集成了以下杰出的开源工具：
+YOU-DRIVE-SOP 站在巨人肩膀上，深度集成了以下开源引擎：
 
-- **[OpenSpec](https://github.com/Fission-AI/OpenSpec)**：由 **Fission-AI** 开发的变更驱动规约系统。它为本项目提供了稳健的生命周期管理底座。
-- **[Superpowers](https://github.com/obra/superpowers)**：由 **Jesse (obra)** 发起的 AI 协作技能系统。它为本项目提供了工程纪律的“元逻辑”来源。
-- **[Gemini Superpowers](https://github.com/barretstorck/gemini-superpowers)**：由 **Barret Storck** 适配的 Gemini CLI 专用技能集。
-
-*本项目遵循 MIT 协议，并在上述上游工具的基础上建立了 YOU-DRIVE-SOP 专有的自演进与提纯闭环。*
+- **[OpenSpec](https://github.com/Fission-AI/OpenSpec)**: 变更驱动的生命周期管理。
+- **[Superpowers](https://github.com/obra/superpowers)**: 原子化技能与工程纪律。
+- **[Gemini Superpowers](https://github.com/barretstorck/gemini-superpowers)**: Gemini CLI 专用技能适配。
 
 ---
-*YOU-DRIVE-SOP - 驱动你的智力资产。*
+
+_YOU-DRIVE-SOP - 驱动你的智力资产。_

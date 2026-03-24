@@ -25,6 +25,7 @@ graph TD
     subgraph Engine [执行与提纯 - Engine]
         subgraph Skeleton [治理骨架 - State Layer]
             OS_ENG["OpenSpec Engine (Propose/Archive)"]
+            GH_CI["CI/CD Guardrails (PR Summary)"]
         end
         subgraph Muscle [执行肌肉 - Action Layer]
             SP_ENG["Superpowers Skills (TDD/Debug/Plan)"]
@@ -32,8 +33,8 @@ graph TD
         MSE["安全执行 (meta-safe-executor)"]
         MD["资产提纯 (meta-distiller)"]
         
-        Skeleton --> Action
-        Action --> MSE
+        Skeleton --> Muscle
+        Muscle --> MSE
     end
 
     Governance --> Engine
@@ -47,10 +48,10 @@ graph TD
 
 为了确保 AI 引擎既具备严谨的流程控制，又具备高效的执行能力，系统采用**“骨架-肌肉”**二元模型：
 
-### 2.1 治理骨架 (Skeleton: OpenSpec)
-*   **职责**：管理变更的状态、决策与生命周期。
+### 2.1 治理骨架 (Skeleton: OpenSpec + CI)
+*   **职责**：管理变更的状态、决策与生命周期，并通过自动化脚本强制执行。
 *   **核心动作**：`/opsx:propose` (提案), `/opsx:apply` (实施), `/opsx:archive` (归档)。
-*   **价值**：确保任何非平庸的变更都“有据可查”、“有法可依”。
+*   **自动化守门人**：GitHub Actions (`pr_summary.yml`) 会物理检查每一项 PR 是否已在 `openspec/changes/archive/` 下完成归档。
 
 ### 2.2 执行肌肉 (Muscle: Superpowers)
 *   **职责**：提供原子级的工程执行技能与铁律。
@@ -97,7 +98,7 @@ graph LR
 ```
 
 ### 3.3 微观流程：12 步生产生命周期 (The 12-Step Protocol)
-描述一个任务从 Issue 创建到 PR 合并的完整物理轨迹，确保智力资产在过程中被提取并归档。
+描述一个任务从 Issue 创建到 PR 合并的完整物理轨迹。
 
 ```mermaid
 sequenceDiagram
@@ -128,49 +129,52 @@ sequenceDiagram
     AI->>VCS: gh pr create/merge (PR 合并与 Issue 关闭)
 ```
 
-> **铁律**：AI 引擎在执行任务时，必须在内心实时对齐这 12 个物理步骤，任何步骤的跳过均被视为对 SOP 2.0 规约的违背。
+---
 
+## 4. 角色定义 (Role Definitions)
+
+### 4.1 实验室管理员 (Foundry Manager)
+*   **目标**：维护母库（Foundry）、管理 Skills 与 Patterns。
+*   **自演进模式**：当修改母库自身时，管理员身份重叠为 Workshop Developer，必须通过本地 OpenSpec 流程提交变更。
+
+### 4.2 资产收割员 (Workshop Developer)
+*   **目标**：在业务项目中引用母库智力，并识别、上报高价值逻辑。
+*   **核心工具**：使用 `meta-distiller` 进行逻辑脱水。
+
+### 4.3 AI 引擎 (SOP Engine)
+*   **目标**：在规约框架内执行任务。
+*   **强制逻辑**：必须通过 [CRITICAL-BOOT-SEQUENCE] 完成初始化。
 
 ---
 
-## 4. 核心组件定义
+## 5. 文档导航地图 (Documentation SSOT Map)
+
+为了消除冗余，本项目严格遵守以下文档分工。任何重复定义均应以 `ARCHITECTURE.md` 为准。
+
+| 文件名 | 定位 | 核心内容 |
+| :--- | :--- | :--- |
+| **README.md** | **门面 (Entrance)** | 项目简介、快速路由、致敬与上游依赖。 |
+| **ARCHITECTURE.md** | **真值源 (SSOT)** | **物理架构、二元模型、生命周期流程图、角色定义。** |
+| **GETTING_STARTED.md**| **操作 (Operations)** | 环境搭建、12 步协议、递归自演进配置、故障排除。 |
+| **GEMINI.md** | **登舰 (Onboarding)** | **AI 启动自检清单 (Boot Sequence)**、快速指令看板。 |
+| **SOP_CORE_MANUAL.md**| **哲学 (Philosophy)** | 系统血统、逻辑刚性原则、资产提纯理论。 |
+| **global_standard.md** | **宪法 (Constitution)** | 全局禁令、安全锁、审计铁律。 |
+
+---
+
+## 6. 核心组件定义
 
 ### 治理层 (Governance)
-*   **宪法 (.gemini/global_standard.md)**: 定义 AI 引擎的行为边界、审计先行禁令与核心价值观。
-*   **核心手册 (SOP_CORE_MANUAL.md)**: [SSOT 迁移中] 详细阐述系统逻辑刚性。
+*   **OpenSpec**: 管理任务生命周期的“骨架”。
+*   **CI/CD Guardrails**: GitHub Actions 提供的物理治理强制手段。
 
 ### 智力资产层 (Assets)
-*   **Skills (AI 技能库)**: 赋予 AI Agent 的特定工作流指令（如 TDD、系统化调试），实现“授人以渔”。
-*   **Patterns (设计模式库)**: 经过验证的代码架构模板（带自动化测试），是智力资产的物理形态。
-*   **OpenSpec**: 系统的神经中枢，负责管理技术决策 (ADR)、任务提案 (Propose) 与归档 (Archive)。
+*   **Skills & Patterns**: 经过提纯的原子知识与代码图纸。
 
 ### 执行引擎 (Engine)
-*   **Meta-Safe-Executor**: 在执行任何物理写操作前执行 Git 快照与安全性审计。
-*   **Meta-Distiller**: 专门用于从业务代码中识别、剥离并提纯高价值逻辑的工具。
-*   **Superpowers Skills**: 提供 TDD、计划编写、系统调试等“肌肉”层面的工程支持。
+*   **Meta-Safe-Executor**: 物理安全与审计层。
+*   **Meta-Distiller**: 资产提纯层。
+*   **Superpowers**: 工程技能与肌肉层。
 
 ---
-
-## 5. 角色定义 (Role Definitions)
-
-### 5.1 实验室管理员 (Foundry Manager)
-*   **目标**：维护母库（Foundry）、管理 Skills 与 Patterns，确保智力资产的纯度与普适性。
-*   **核心动作**：
-    *   执行 `activate_skill foundry-initializing` 补全核心规约。
-    *   审核来自各 Workshop 的资产提纯（Distillation）申请。
-    *   通过 ADR (Architecture Decision Records) 驱动母库架构演进。
-
-### 5.2 资产收割员 (Workshop Developer)
-*   **目标**：在业务项目（Workshop）中引用母库智力，并识别、上报高价值业务逻辑。
-*   **核心动作**：
-    *   执行 `activate_skill workshop-initializing` 建立物理链路。
-    *   遵循 SOP 12 步生产规约执行业务开发。
-    *   使用 `meta-distiller` 提纯逻辑并推送到 Staging 区域。
-
-### 5.3 AI 引擎 (SOP Engine)
-*   **目标**：在驾驶员（用户）的指引下，严格遵循物理规约执行原子化任务。
-*   **核心动作**：
-    *   执行 [CRITICAL-BOOT-SEQUENCE] 完成自检。
-    *   激活特定 Skill 解决领域问题。
-    *   实时记录审计日志（Ops Changelog）。
-
+*YOU-DRIVE-SOP - 驱动规约，掌握智力。*

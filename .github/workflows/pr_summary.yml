@@ -45,19 +45,24 @@ jobs:
           fi
           
           echo -e "\n#### 3. SOP 合规性检查" >> summary.md
-          # 1. 提取当前 PR 分支名或标题中的 Issue 编号 (假设格式为 feat/issue-123)
-          ISSUE_NUM=$(echo "${{ github.head_ref }}" | grep -oE '[0-9]+' | head -1 || true)
+          # 1. 尝试从分支名提取 Issue ID
+          # 策略：优先提取 issue- 后面的完整 slug，如果不存在则提取数字
+          HEAD_REF="${{ github.head_ref }}"
+          ISSUE_ID=$(echo "$HEAD_REF" | sed -E 's/^issue-//' || true)
+          NUMERIC_ID=$(echo "$HEAD_REF" | grep -oE '[0-9]+' | head -1 || true)
           
-          # 2. 检查 .ai/archive/ 下是否有对应编号的总结文件
-          ARCHIVE_CHANGES=$(git diff origin/${{ github.base_ref }}...HEAD --name-only | grep ".ai/archive/.*${ISSUE_NUM}_summary.md" || true)
+          # 2. 检查 openspec/changes/archive/ 下是否有对应名称的归档文件夹 (支持 YYYY-MM-DD-ID 格式)
+          # 搜索模式：包含 ISSUE_ID 或 NUMERIC_ID 的目录
+          ARCHIVE_MATCH=$(find openspec/changes/archive/ -maxdepth 1 -name "*${ISSUE_ID}*" -o -name "*${NUMERIC_ID}*" | head -1 || true)
           
-          if [ -z "$ISSUE_NUM" ]; then
-            echo "⚠️ **警告**：无法从分支名提取 Issue 编号，请手动确认归档。" >> summary.md
-          elif [ -z "$ARCHIVE_CHANGES" ]; then
-            echo "❌ **异常**：未检测到 \`.ai/archive/${ISSUE_NUM}_summary.md\`。请按 SOP 提交归档文档。" >> summary.md
+          if [ -z "$ISSUE_ID" ]; then
+            echo "⚠️ **警告**：无法识别有效的 Issue ID，请手动确认归档。" >> summary.md
+          elif [ -z "$ARCHIVE_MATCH" ]; then
+            echo "❌ **异常**：未在 \`openspec/changes/archive/\` 下检测到匹配 \`${ISSUE_ID}\` 的归档。请执行 \`/opsx:archive\`。" >> summary.md
             echo "CHECK_STATUS=fail" >> $GITHUB_ENV
           else
-            echo "✅ **合规**：已检测到 Issue #${ISSUE_NUM} 的归档文档。" >> summary.md
+            ARCHIVE_NAME=$(basename "$ARCHIVE_MATCH")
+            echo "✅ **合规**：已检测到归档目录 \`$ARCHIVE_NAME\`。" >> summary.md
             echo "CHECK_STATUS=pass" >> $GITHUB_ENV
           fi
 
