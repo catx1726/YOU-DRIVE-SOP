@@ -6,7 +6,7 @@
 
 ---
 
-## 🏗️ 基础设施搭建 (Foundry & Workshop Setup)
+## 基础设施搭建 (Foundry & Workshop Setup)
 
 1.  **Clone 本库 (母库)**：
     ```bash
@@ -16,43 +16,30 @@
     ```bash
     npm install -g @fission-ai/openspec@latest
     ```
-3.  **子库初始化引擎**：进入业务项目，执行：
-    ```bash
-    openspec init
-    ```
-    *✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。*
-3.5 **物理自举链接**：由于子库尚未链接母库，AI 此时无法感知技能。您**必须**手动执行以下指令来建立初步联系：
-    ```bash
-    gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent
-    ```
-    *注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。*
+3.  **子库初始化引擎**：进入业务项目，执行： `bash     openspec init     ` _✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。_ 3.5 **物理自举链接**：由于子库尚未链接母库，AI 此时无法感知技能。您**必须**手动执行以下指令来建立初步联系： `bash     gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent     ` _注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。_
 
 ### 🧱 物理安全红线 (Safety Gate)
-**在执行下一步前，请确保子库已配置 `.gitignore`。**
-若子库使用 Git 管理，**必须**忽略以下路径：
+
+**在执行下一步前，请确保子库已配置 `.gitignore`。** 若子库使用 Git 管理，**必须**忽略以下路径：
+
 - `.gemini/skills/`
 - `patterns/`
-- `.gemini/link.json`
-*⚠️ 警告：如果不配置忽略规则，Git 在切换分支时可能会尝试删除这些物理链路，并极易穿透链路导致母库源文件被物理销毁。*
+- `.gemini/link.json` _⚠️ 警告：如果不配置忽略规则，Git 在切换分支时可能会尝试删除这些物理链路，并极易穿透链路导致母库源文件被物理销毁。_
 
-4.  **子库物理对齐 (Handshake)**：
-在子库执行：
-    ```bash
-    activate_skill workshop-initializing
-    ```
+4.  **子库物理对齐 (Handshake)**：在子库执行： `bash     activate_skill workshop-initializing     `
 
-    _✓ 逻辑：建立物理链路 (Junction)，将母库的以下资产挂载至子库：_
-    - `openspec\config.yaml`：读取母库 `config_foundry.yaml` 并 Deep Merge。
-    - `openspec\schemas\`：同步全量协议模板。
-    - `openspec\specs\`：递归同步全量治理规约。
-    - `GEMINI.md`：注入「🚀 快速操作看板」。
-    - `AGENTS.md` & `global_standard.md`：同步代理定义与物理宪法。
-    - `.gemini\skills` & `patterns/`：挂载全量技能与图纸库。
-    - _链路存根：生成 `.gemini/link.json` 记录母库物理绝对路径。_
+        _✓ 逻辑：建立物理链路 (Junction)，将母库的以下资产挂载至子库：_
+        - `openspec\config.yaml`：读取母库 `config_foundry.yaml` 并 Deep Merge。
+        - `openspec\schemas\`：同步全量协议模板。
+        - `openspec\specs\`：递归同步全量治理规约。
+        - `GEMINI.md`：注入「🚀 快速操作看板」。
+        - `AGENTS.md` & `global_standard.md`：同步代理定义与物理宪法。
+        - `.gemini\skills` & `patterns/`：挂载全量技能与图纸库。
+        - _链路存根：生成 `.gemini/link.json` 记录母库物理绝对路径。_
 
 ---
 
-## 🚦 生产生命周期 (The 12-Step Protocol)
+## 生产生命周期 (The 12-Step Protocol)
 
 **标准流：`Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> Merge -> Close`**
 
@@ -78,7 +65,7 @@
     ```bash
     /opsx:verify
     ```
-    _根据 specs/_.md 中定义的 Scenario (####) 逐项核对物理产出。\*
+    _根据 specs/\*.md 中定义的 Scenario (####) 逐项核对物理产出。_
 8.  **任务测试 (TDD)**：执行 `activate_skill test-driven-development`。 _铁律：先写失败测试，见证失败后再编写生产逻辑。_
 9.  **资产提纯 (Distill)**：**[归档前置]** 激活 `activate_skill meta-distiller`。 _✓ 物理产出：将通用逻辑提取至 `.gemini/distill_stage/`，确保“三件套”齐备。_
 10. **归档任务**：使用 `/opsx:archive`。
@@ -93,17 +80,21 @@
 
 ---
 
-## 🔧 日常维护 (Daily Maintenance)
+## 日常维护 (Daily Maintenance)
 
 ### 同步母库最新智力 (Foundry Sync)
+
 如果您处于 **Copied (静态副本)** 模式，或者母库发布了新的元规约，请执行以下指令进行增量对齐：
+
 ```bash
 activate_skill workshop-sync
 ```
-*✓ 物理逻辑：系统将从 `link.json` 定义的路径执行增量拉取（`xcopy /D`），仅更新较新或缺失的 Skills 和 Patterns，不会破坏您的本地业务代码。*
+
+_✓ 物理逻辑：系统将从 `link.json` 定义的路径执行增量拉取（`xcopy /D`），仅更新较新或缺失的 Skills 和 Patterns，不会破坏您的本地业务代码。_
 
 ---
-## 🛠️ 故障排除 (Troubleshooting)
+
+## 故障排除 (Troubleshooting)
 
 ### 1. Windows 权限错误 (Access Denied / Error 5)
 
@@ -117,6 +108,38 @@ activate_skill workshop-sync
 若 AI 无法自动定位母库：
 
 - **方案**：手动在子库根目录创建 `.gemini/link.json`，内容为：`{"foundry_root": "C:\\绝对路径\\TO\\FOUNDRY"}`。
+
+---
+
+## 递归模式与母库自演进 (Recursive Mode & Self-Evolution)
+
+当您作为**母库管理员**需要修改母库本身的 Skills、Patterns 或治理规约时，系统支持将其作为自身的 Workshop 进行自演进。
+
+### 1. 配置本地母库为同步源
+
+在母库根目录的 `.gemini/link.json` 中，确保路径指向自身（或在环境变量中定义）：
+
+```json
+{
+  "foundry_root": "."
+}
+```
+
+或使用绝对路径。
+
+### 2. 自演进操作流程
+
+在母库中执行变更时，**必须**遵循标准的 12 步协议，特别是：
+
+1. **Propose**: 使用 `/opsx:propose` 提交架构或技能变更提案。
+2. **Apply**: 在本地执行修改。
+3. **TDD**: 确保新编写的 Skill 或 Pattern 通过本地测试。
+4. **Distill & Archive**: 执行归档，将变更正式并入母库资产池。
+
+### 3. 陷阱规约 (Safety Guardrails)
+
+- **循环引用**: 在递归模式下执行 `workshop-sync` 时，系统会自动识别源与目标一致并跳过物理拷贝，以防文件损坏。
+- **分支隔离**: 即使是自演进，也严禁在 `main` 分支直接修改 `skills/`，必须通过 `issue-N` 分支进行治理流转。
 
 ---
 
