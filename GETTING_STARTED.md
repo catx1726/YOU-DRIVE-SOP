@@ -16,7 +16,9 @@
     ```bash
     npm install -g @fission-ai/openspec@latest
     ```
-3.  **子库初始化引擎**：进入业务项目，执行： `bash     openspec init     ` _✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。_ 3.5 **物理自举链接**：由于子库尚未链接母库，AI 此时无法感知技能。您**必须**手动执行以下指令来建立初步联系： `bash     gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent     ` _注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。_
+3.  **子库初始化引擎**：进入业务项目，执行： `bash     openspec init     ` _✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。_
+
+4.  **物理自举链接**：由于子库尚未链接母库，AI 此时无法感知技能。您**必须**手动执行以下指令来建立初步联系： `bash     gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent     ` _注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。_
 
 ### 🧱 物理安全红线 (Safety Gate)
 

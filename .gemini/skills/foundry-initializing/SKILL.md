@@ -20,34 +20,28 @@ mode: step-by-step
 - [ ] **建立物理基座**：创建 `.gemini/skills/`、`openspec/decisions/`、`openspec/schemas/` 以及 `patterns/` 目录。
 - [ ] **生成母库全局配置 (Config Seeding)**：
   - **ACTION**：若 `openspec/config_foundry.yaml` 缺失，AI **必须**物理创建该文件。
+  - **RECURSIVE MODE**：AI **必须**在母库根目录创建 `link.json`，内容为 `{"foundry_root": ".", "link_type": "recursive"}`，以支持自演进。
   - **CONTENT**：
     ```yaml
     schema: spec-driven
     context: |
       This project follows the YOU-DRIVE-SOP framework.
-      - Core Protocols: openspec/specs/foundry-protocols/spec.md
+      - Core Protocols: ARCHITECTURE.md
       - Security Mandate: All modifications through 'meta-safe-executor'.
     rules:
       tasks:
         - "Integrity Check: Every task list MUST start with '## 1. 规约与环境自检 (Mandatory Setup)'."
         - "Integrity Check: Every task list MUST end with 'Process Compliance Verification'."
-    templates:
-      tasks: |
-        ## 1. 规约与环境自检 (Mandatory Setup)
-        - [ ] 1.1 确认当前分支为 issue-N 或 task/N
-        - [ ] 1.2 确认 .gemini/ops_changelog.md 审计表格已更新
-        - [ ] 1.3 执行 activate_skill verification-before-completion 预载验证逻辑
     ```
 - [ ] **物理去冗余**：确保 `skills/` 下无 `meta/` 或 `common/` 等二级目录，维持扁平化架构。
 
 ### 2. Standard & Protocol Template Injection
-- [ ] **注入全局行为宪法**：创建 `.gemini/global_standard.md`。若已存在，AI 必须执行 `read_file` 检查是否包含“提纯-反哺”核心规约，并进行增量补丁。
-- [ ] **物理生成协议模板**：在 `openspec/schemas/` 下**物理创建**以下模板：
-  - `env_schema.md`: 定义环境指纹识别标准。
-  - `logic_schema.md`: 定义“三件套”资产准入标准。
-  - `decision_schema.md`: 定义 ADR 决策记录格式。
+- [ ] **注入全局行为宪法**：创建 `.gemini/global_standard.md`。
+- [ ] **审计日志初始化**：创建 `.gemini/ops_changelog.md`。
+  - **ENCODING**：必须确保文件以 **UTF-8 (without BOM)** 编码写入，严禁产生乱码。
 - [ ] **物理补全核心规约 (Spec Seeding)**：
-  - **VCS 自动化**：创建 `openspec/specs/vcs-lifecycle-automation/spec.md`。内容必须包含：分支自动创建 (issue-N) 规约、PR Summary 自动生成规约。
+  - **架构真值源**：创建 `ARCHITECTURE.md`（若缺失），注入三层架构、二元模型与 12 步协议流程图。
+  - **VCS 自动化**：创建 `openspec/specs/vcs-lifecycle-automation/spec.md`。内容必须包含：分支自动创建 (issue-N)规约、PR Summary 自动生成规约。
   - **资产血统**：创建 `openspec/specs/upstream-lineage/openspec-core.md`。内容必须包含：OpenSpec 变更驱动流程定义。
 - [ ] **同步生产协议**：创建 `openspec/specs/foundry-protocols/spec.md`，定义资产收割的物理规则。
 
@@ -59,7 +53,7 @@ mode: step-by-step
 
 ### 4. AI Context Onboarding (The Chain Connection)
 - [ ] **物理探测手册**：自动探测根目录是否存在 `SOP_CORE_MANUAL.md`。
-- [ ] **主动报告与分析**：若手册存在，AI 必须在初始化完成后，自动为用户总结手册中的 **“第一章：逻辑刚性”**，并报告当前母库的 **[规约对齐状态]**（宪法是否最新、核心规约是否齐备），并提示用户：『初始化已完成，我已通过核心手册对齐了 SOP 2.0 规约。您现在可以开始“资产反哺”之旅。』
+- [ ] **主动报告与分析**：若手册存在，AI 必须在初始化完成后，自动为用户总结手册中的 **“第一章：逻辑刚性”**，并报告当前母库的 **[规约对齐状态]**（宪法是否最新、核心规约是否齐备），并提示用户：『初始化已完成，我已通过架构规约对齐了 SOP 2.0。您现在可以开始“资产自主演进”之旅。』
 
 ## Red Flags
 - 初始化产生空文件（必须包含实质性规约内容）。

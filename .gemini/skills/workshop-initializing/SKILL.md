@@ -58,7 +58,7 @@ mode: step-by-step
     - `{{FOUNDRY_ROOT}}\openspec\specs\` -> `openspec\specs\`
     - `{{FOUNDRY_ROOT}}\openspec\schemas\` -> `openspec\schemas\`
     - `{{FOUNDRY_ROOT}}\openspec\specs\foundry-protocols\` -> `openspec\specs\foundry-protocols\`
-    - **GLOBAL ASSETS**：物理拷贝母库根目录下的 `global_standard.md`, `AGENTS.md`, `GETTING_STARTED.md`, `SOP_CORE_MANUAL.md` 至子库根目录。
+    - **GLOBAL ASSETS**：物理拷贝母库根目录下的 `global_standard.md`, `ARCHITECTURE.md`, `GETTING_STARTED.md`, `SOP_CORE_MANUAL.md`, `README.md` 至子库根目录。
   - **SAFETY**：同步前确认子库已执行 Git 快照。
 - [ ] **环境指纹扫描**：执行本地 `package.json` 与 `node -v` 扫描。
 - [ ] **偏差报告生成**：在 `openspec/specs/env.md` 中标注架构代沟，并定义高价值资产沉淀白名单。
@@ -73,16 +73,16 @@ mode: step-by-step
     <!-- 简述本次变更意图 -->
 
     ## Knowledge Points
-    - **Arch Decision**: 引用 openspec/decisions 下的 ADR。
+    - **Arch Decision**: 引用 ARCHITECTURE.md 或本地 ADR。
     - **Asset Contribution**: 本次反哺了哪些 Pattern？
 
     ## Closure
-    Closes #ISSUE_ID
+    Closes #ISSUE_ID (or descriptive ID)
     ```
 
 ### 5. Foundry Manual Alignment (Contract Handshake)
-- [ ] **物理通读母库手册**：AI 必须执行 `read_file {{FOUNDRY_ROOT}}/SOP_CORE_MANUAL.md`。
-- [ ] **注入规约意识**：AI 必须向用户报告：『已同步母库 SOP 2.0 规约。我已理解“逻辑刚性”、“资产循环”与“人机协作协议”。』
+- [ ] **物理通读架构规约**：AI 必须执行 `read_file ARCHITECTURE.md`。
+- [ ] **注入规约意识**：AI 必须向用户报告：『已同步母库 SOP 2.0 规约。我已理解“骨架-肌肉”二元模型、12 步生产协议与资产提纯逻辑。』
 
 ### 6. Dashboard Standard Injection
 - [ ] **生成看板式 GEMINI.md**：在子库根目录生成包含「🚀 快速操作看板」的 `GEMINI.md`。
@@ -96,27 +96,25 @@ mode: step-by-step
   物理链路类型：`{{LINK_TYPE}}`
 
   ## 🚥 12 步生产生命周期
-  所有的开发任务 **必须** 严格遵循 [**12 步工业级操作协议**](./GETTING_STARTED.md#🚦-生产生命周期-the-12-step-protocol)：
-  `Issue -> Branch -> Propose -> Apply -> Verify -> Distill -> Archive -> Merge`
+  所有的开发任务 **必须** 严格遵循唯一真值源 [**ARCHITECTURE.md**](./ARCHITECTURE.md) 中的规约。
 
   ## 常用指令集
-  ### 场景 A：新功能开发 (Feature)
-  - `/opsx:propose "功能名称"` —— 发起新功能提案。
-  - `/opsx:apply` —— 按照 `tasks.md` 步进执行任务。
-  - `/opsx:verify` —— 物理核对规格 Scenario 是否达成。
+  ### 场景 A：任务流转 (Governance)
+  - `/opsx:propose "名称"` —— 发起提案。
+  - `/opsx:apply` —— 执行任务。
+  - `/opsx:archive` —— 提纯并归档。
 
-  ### 场景 B：资产提纯与维护 (Maintenance)
-  - `activate_skill meta-distiller` —— 执行逻辑提取与参数化。
-  - `activate_skill workshop-sync` —— **[Copied 模式专用]** 拉取母库最新更新。
-  - `/opsx:archive` —— 执行智力资产反哺并归档变更。
+  ### 场景 B：工程执行 (Action)
+  - `activate_skill writing-plans` —— 编写战术计划。
+  - `activate_skill meta-safe-executor` —— 安全写操作。
+  - `activate_skill meta-distiller` —— 资产脱水。
 
   ## 🚦 状态查询指令
-  您可以随时向 AI 发起以下查询，以确认物理对齐状态：
-  - 『**目前的初始化状态如何？**』 —— AI 将检查链路、宪法与协议的完整性。
-  - 『**我接下来该做什么？**』 —— AI 将根据 `ops_changelog.md` 和 `tasks.md` 给出下一步建议。
+  - 『**目前的初始化状态如何？**』 —— 检查链路、宪法与协议。
+  - 『**我接下来该做什么？**』 —— 根据 `ops_changelog.md` 给出建议。
 
   ## 行为约束
-  - 所有的 AI 操作必须遵循 [母库全局标准](./global_standard.md) 与 [代理协议](./AGENTS.md)。
+  - 所有的 AI 操作必须遵循 [全局行为宪法](./global_standard.md) 与 [架构规约中的角色定义](./ARCHITECTURE.md#5-角色定义)。
   ```
 
 ### 6. Final Synthesis & Interactive Handover

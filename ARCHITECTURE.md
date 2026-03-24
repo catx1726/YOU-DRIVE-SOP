@@ -28,13 +28,16 @@ graph TD
             GH_CI["CI/CD Guardrails (PR Summary)"]
         end
         subgraph Muscle [执行肌肉 - Action Layer]
+            subgraph MetaSkills [核心元技能 - Meta Skills]
+                MD["资产提纯 (meta-distiller)"]
+                MSE["安全执行 (meta-safe-executor)"]
+            end
             SP_ENG["Superpowers Skills (TDD/Debug/Plan)"]
         end
-        MSE["安全执行 (meta-safe-executor)"]
-        MD["资产提纯 (meta-distiller)"]
         
         Skeleton --> Muscle
-        Muscle --> MSE
+        SP_ENG --> MSE
+        MD --> MSE
     end
 
     Governance --> Engine
@@ -50,13 +53,16 @@ graph TD
 
 ### 2.1 治理骨架 (Skeleton: OpenSpec + CI)
 *   **职责**：管理变更的状态、决策与生命周期，并通过自动化脚本强制执行。
-*   **核心动作**：`/opsx:propose` (提案), `/opsx:apply` (实施), `/opsx:archive` (归档)。
+*   **规划层级**：**治理/策略规划 (Strategic Planning)** —— 决定“去哪 (What & Why)”。
+*   **核心产出**：Proposal (提案) 与 Specs (规约)。它定义了任务的结构边界。
 *   **自动化守门人**：GitHub Actions (`pr_summary.yml`) 会物理检查每一项 PR 是否已在 `openspec/changes/archive/` 下完成归档。
 
 ### 2.2 执行肌肉 (Muscle: Superpowers)
 *   **职责**：提供原子级的工程执行技能与铁律。
-*   **核心技能**：`writing-plans` (计划驱动), `test-driven-development` (TDD 铁律), `systematic-debugging` (系统化调试)。
-*   **价值**：确保每一个原子动作的“物理质量”与“结果可验证性”。
+*   **规划层级**：**执行/战术规划 (Tactical Planning)** —— 决定“怎么走 (How)”。
+*   **核心产出**：Task List (任务清单)。即使是 `writing-plans` 技能，也是为了驱动物理执行而进行的战术协调。
+*   **核心技能**：`writing-plans`, `test-driven-development` (TDD 铁律), `systematic-debugging` (系统化调试)。
+
 
 ---
 
