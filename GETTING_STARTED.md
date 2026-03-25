@@ -41,44 +41,23 @@
 
 ---
 
-## 生产生命周期 (The 12-Step Protocol)
+## 生产生命周期 (The 13-Step Protocol)
 
-**标准流：`Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> Merge -> Close`**
+**标准流 (13-Step Abstract Flow):** `Launch -> Issue -> Branch -> Propose -> Apply -> TDD -> Safety-Audit -> Verify -> Distill -> Archive -> PR -> Merge -> Close`
 
-1.  **讨论需求**：执行 `activate_skill brainstorming`。识别业务逻辑中的“资产贡献点”。
-2.  **确认需求**：使用 GitHub CLI 基于 `.github\ISSUE_TEMPLATE` 创建：
-    ```bash
-    gh issue create --template feature_template.md
-    ```
-    _获得 Issue ID（如 #27）。_
-3.  **创建分支**：基于 `main` 切出：
-    ```bash
-    git checkout main; git pull; git checkout -b issue-27
-    ```
-    _⚠️ 严禁在 main 直接操作。_
-4.  **细化任务**：使用 `/opsx:propose` 将需求拆分为 `proposal -> design -> tasks`。 _⚠️ 强制项：`tasks.md` 必须自动包含 `## 1. 规约与环境自检 (Mandatory Setup)`。_
-5.  **执行任务**：使用 `/opsx:apply` 根据任务清单按部就班地编写代码。
-6.  **快照审计 (Safe Lock)**：任何涉及文件修改的指令，操作前激活：
-    ```bash
-    activate_skill meta-safe-executor
-    ```
-    _✓ 物理记录：在 `.gemini/ops_changelog.md` 中以 Markdown 表格记录意图与 Undo_CMD。_
-7.  **质量检查 (Verify)**：执行：
-    ```bash
-    /opsx:verify
-    ```
-    _根据 specs/\*.md 中定义的 Scenario (####) 逐项核对物理产出。_
-8.  **任务测试 (TDD)**：执行 `activate_skill test-driven-development`。 _铁律：先写失败测试，见证失败后再编写生产逻辑。_
-9.  **资产提纯 (Distill)**：**[归档前置]** 激活 `activate_skill meta-distiller`。 _✓ 物理产出：将通用逻辑提取至 `.gemini/distill_stage/`，确保“三件套”齐备。_
-10. **归档任务**：使用 `/opsx:archive`。
-    - **治理分流**：涉及规约/技能的变更移入 `openspec/changes/archive/governance/`。
-    - **日志入库**：将操作日志移至 `openspec/operations/archive/<YYYY-MM-DD-name>/`。
-11. **元技能编写**：激活 `activate_skill writing-skills`。 _根据提炼的内容在母库 `.gemini/skills/` 下编写对应的 Skill 手册。_
-12. **合并与闭环**：使用 GitHub CLI 处理：
-    ```bash
-    gh pr create --body "..."
-    git checkout main; git merge issue-27; git branch -d issue-27; gh issue close 27
-    ```
+1.  **需求探索 (Brainstorm)**：执行 `activate_skill brainstorming`。识别业务逻辑中的“资产贡献点”。
+2.  **需求固化 (Issue)**：使用 `gh issue create` 创建 Issue，记录原始需求并获得唯一 ID。
+3.  **分支隔离 (Branch)**：执行 `git checkout -b issue-N` (或 `task/N`)，**严禁**在 `main` 分支执行任何开发。
+4.  **提案 (Propose)**：执行 `/opsx:propose`，激活 `writing-plans` 技能，生成 `tasks.md`，并确保包含强制性的“规约与环境自检”步骤。
+5.  **执行内环 (Apply-Act)**：执行 `/opsx:apply`，激活 `executing-plans` 技能读取 `tasks.md` 按序执行任务。
+6.  **TDD 循环 (Test)**：在执行每个任务时，激活 `test-driven-development`，执行“红-绿-重构”测试循环。
+7.  **安全审计 (Audit)**：任何文件修改前激活 `meta-safe-executor`，在 `.gemini/ops_changelog.md` 中物理留痕。
+8.  **自我验证 (Verification)**：激活 `verification-before-completion`，在提交前产出验证证据（Logs/Diff）。
+9.  **规约验证 (Verify)**：执行 `/opsx:verify`。系统将首先执行 `openspec/config.yaml` 定义的 `test_command`，通过后再执行手动的规约比对。
+10. **资产提纯 (Distill)**：**[归档前置]** 激活 `activate_skill meta-distiller`，将通用逻辑脱水提取至 `.gemini/distill_stage/`。
+11. **归档 (Archive)**：使用 `/opsx:archive` 固化本次变更记录，并激活 `writing-skills` 将提纯成果转化为新的母库技能。
+12. **发起评审 (PR)**：使用 `gh pr create` 发起评审，等待 CI/CD 自动通过 `pr_summary.yml` 的合规性校验。
+13. **闭环 (Merge/Close)**：使用 `gh pr merge` 合并代码，`gh issue close` 关闭 Issue。
 
 ---
 

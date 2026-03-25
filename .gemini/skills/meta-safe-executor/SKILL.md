@@ -18,13 +18,19 @@ description: Use when performing write operations (CREATE, UPDATE, DELETE, MOVE)
 2. **Semantic Logging**: 在 `.gemini/ops_changelog.md` 记录操作意图。
 3. **Safe Gate**: 破坏性动作强制弹窗确认。
 
-## Implementation Workflow
+## Implementation Workflow (Mandatory Audit Lock)
+
+### 0. Mandatory Pre-Write Protocol (Audit Lock)
+**在执行任何写操作 (`write_file`, `replace`, `run_shell_command` 修改文件) 之前，AI 必须物理执行：**
+1.  **READ-LOG**: `read_file .gemini/ops_changelog.md` 确认审计表已就绪。
+2.  **PHYSICAL LOG**: 追加操作意图到 `.gemini/ops_changelog.md`。
+3.  **VERIFY**: 确认日志持久化后再进行后续动作。
 
 ### 1. Pre-operation Backup (Git Auto-Save)
 - **Check**: 执行 `git status --porcelain`。
 - **Action**: 若有未提交改动，执行：
   ```powershell
-  git add -A; git commit -m "AI_SAFE_SAVE: [Pre-Op Backup] <Short Reason>"
+  git add -A; git commit -m "AI_AUTO_SNAP: [Pre-Op Backup] <Short Reason>" --allow-empty
   ```
 
 ### 2. Operation Audit (Changelog)
@@ -32,6 +38,7 @@ description: Use when performing write operations (CREATE, UPDATE, DELETE, MOVE)
   | Time | Action | Target | Reason | Commit_ID | Undo_CMD |
   | :--- | :--- | :--- | :--- | :--- | :--- |
   | {{NOW}} | {{ACTION}} | {{PATH}} | {{INTENT}} | {{HEAD_ID}} | {{RECOVERY_CMD}} |
+
 
 ### 3. Destructive Action Guard (Safe Gate)
 - **Target**: `rm`, `Remove-Item`, `mv` (rename/move), `Clear-Content`.

@@ -34,5 +34,25 @@
   1. 产出一份名为 **"ADR: OpenSpec & Superpowers Integration Model"** 的决策记录。
   2. 在 `ARCHITECTURE.md` 中最终固化“二元模型”的图示与文字定义，使其无需进一步解释即可被新的 AI 或开发者理解。
 
+## 4. 多智能体并发与任务代理 (Multi-Agent Delegation)
+
+- **目标**: 突破单 Agent 会话瓶颈，实现复杂任务的“自动拆解-并行执行-结果汇总”。
+- **研究方向**:
+  - [ ] **控制器-执行者模式**: 设计主 Agent 的 `dispatching-parallel-agents` 系统提示词。
+  - [ ] **任务隔离 (Isolation)**: 研究如何在 Git 分支/工作树层面实现多个 WorkerAgent 的完全物理隔离。
+  - [ ] **冲突合并 (3-Way Merge)**: 研究 OpenSpec 变更在并行执行时的自动冲突解决机制。
+- **验收标准**: 单个指令即可触发子智能体并行执行（如“同时修复三个模块”），且无任何 Git 竞态条件。
+
+## 5. 自动化提案链 (Automated Propose-Plan Linkage)
+
+- **目标**: 实现 `openspec-propose` 与 `writing-plans` 的自动化联动，减少手动激活环节，确保任务清单自动符合 TDD 规范。
+- **研究方向**:
+  - [ ] **CLI 事件钩子**: 研究 `OpenSpec` 是否支持在 `new change` 之后自动触发特定 Skill (如 `writing-plans`)。
+  - [ ] **Prompt 级联 (Prompt Cascading)**: 设计一套“提案上下文注入”机制，确保提案内容自动转化为 `tasks.md` 的初始框架。
+  - [ ] **验证**: 实现“提案完成 -> 自动生成 TDD 规范的 Task 清单”的零人工干预闭环。
+- **验收标准**: 执行 `/opsx:propose` 后，AI 自动调用 `writing-plans` 并产出带有 TDD 验证步骤的 `tasks.md`。
+
 ---
 *当以上任一议题的研究成熟后，应通过 `/opsx:propose "议题名称"` 将其转化为可执行的 OpenSpec Change。*
+
+

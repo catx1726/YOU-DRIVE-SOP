@@ -1,13 +1,15 @@
 schema: spec-driven
 
+# Runtime environment for sub-repos
+runtime:
+  test_command: "npm test" # Default for frontend; AI MUST scan and update this per project
+  lint_command: "npm run lint"
+
 # Project context (High-density SOP 2.0 alignment)
 context: |
-  This project follows the YOU-DRIVE-SOP framework with SOP1 Legacy Bridge.
-  - Core Protocols: Refer to 'openspec/specs/foundry-protocols/spec.md' for audit/distill rules.
-  - Automation Standards: Refer to 'openspec/specs/vcs-lifecycle-automation/spec.md'.
-  - VCS Mandate: Use 'gh' CLI for GitHub Issue/PR automation.
-  - Workflow: Issue -> Branch -> Propose -> Apply -> Distill -> Archive -> PR -> Close.
-  - Security Mandate: Every file modification MUST be through 'meta-safe-executor'.
+  This project follows the YOU-DRIVE-SOP framework.
+  - Test Entry: Execute '{{TEST_COMMAND}}' before any manual verification.
+  - Security Mandate: All modifications through 'meta-safe-executor'.
 
 # Per-artifact rules
 rules:

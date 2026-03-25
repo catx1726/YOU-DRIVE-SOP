@@ -26,14 +26,17 @@ If you haven't run the verification command in this message, you cannot claim it
 ```
 BEFORE claiming any status or expressing satisfaction:
 
-1. IDENTIFY: What command proves this claim?
-2. RUN: Execute the FULL command (fresh, complete)
-3. READ: Full output, check exit code, count failures
-4. VERIFY: Does output confirm the claim?
-   - If NO: State actual status with evidence
-   - If YES: State claim WITH evidence
-5. ONLY THEN: Make the claim
-
+1. READ-CONFIG: Read `openspec/config.yaml` or `package.json` to identify the 'test_command'.
+2. PRE-FLIGHT: Execute the `test_command` (e.g., 'npm test').
+   - If ANY test fails (exit code != 0): STOP. Do not proceed to manual verification.
+3. IDENTIFY: What specific command/evidence proves your specific claim?
+4. RUN: Execute the FULL command (fresh, complete).
+5. READ: Full output, check exit code, count failures.
+6. VERIFY: Does output confirm the claim?
+   - If NO: State actual status with evidence.
+   - If YES: State claim WITH evidence.
+7. ONLY THEN: Make the claim.
+```
 Skip any step = lying, not verifying
 ```
 
