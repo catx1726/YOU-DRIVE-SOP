@@ -15,3 +15,17 @@
 ## 3. 协作层：多智能体并发 (Multi-Agent Delegation)
 - **目标**: 实现 Agent 任务拆解、多 Worker 并发、冲突合并。
 - **状态**: 待调研
+
+---
+
+## 4. 协议自动化增强 (Protocol Automation Hardening)
+
+### 4.1 节点 03: 分支命名物理熔断
+- **目标**: 通过 Git Hook 或 Policy 拦截非 `issue-N` 命名的分支上的写操作。
+
+### 4.2 节点 07: 审计留痕 CI 强校验
+- **目标**: 编写 GitHub Actions，检查 PR 提交中是否包含 `.gemini/ops_changelog.md` 的物理行更新。
+
+### 4.3 节点 10: 提纯动作与归档绑定
+- **目标**: 优化 `openspec-archive` 技能，使其在检测到业务代码变更而无 Staging 产物时，自动触发 `meta-distiller`。
+

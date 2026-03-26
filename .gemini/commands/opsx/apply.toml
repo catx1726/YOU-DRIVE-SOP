@@ -48,7 +48,8 @@ Implement tasks from an OpenSpec change.
    - **spec-driven**: proposal, specs, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
-   *当成功读取 tasks.md 后，你必须立即激活 executing-plans 技能，并严格按照 tasks.md 列表进行原子化执行。*
+4. **强制指令 (Mandatory Execution Linkage)**:
+   当成功读取 `tasks.md` 后，你 **必须** 立即激活 `activate_skill executing-plans`。在此之后，你必须严格按清单逐项执行，严禁进入非受控的 shell 自由交互模式。此强制链路若被跳过，则视为严重的操作逻辑违规。
 
 5. **Show current progress**
 

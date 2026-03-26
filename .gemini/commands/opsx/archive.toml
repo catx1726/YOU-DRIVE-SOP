@@ -61,18 +61,27 @@ Archive a completed change in the experimental workflow.
 
    Create the archive directory if it doesn't exist:
    ```bash
-   mkdir -p openspec/changes/archive
+   mkdir -p openspec/changes/archive/governance
    ```
 
    Generate target name using current date: `YYYY-MM-DD-<change-name>`
 
-   **Check if target already exists:**
-   - If yes: Fail with error, suggest renaming existing archive or using different date
-   - If no: Move the change directory to archive
+   **Category Decision (SOP 2.0 Exclusive)**:
+   - **Governance**: If the change modifies `.gemini/`, `openspec/`, or core framework docs (`ARCHITECTURE.md`, `SOP_CORE_MANUAL.md`).
+   - **Business**: Default category.
 
-   ```bash
-   mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
-   ```
+   **Relocation**:
+   - Governance: `mv openspec/changes/<name> openspec/changes/archive/governance/YYYY-MM-DD-<name>`
+   - Business: `mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>`
+
+5.5 **审计日志结转 (Audit Handover - SOP 2.0 Exclusive)**
+
+   在物理移动完成后，你 **必须** 执行以下动作：
+   - **提取日志**: 读取 `.gemini/ops_changelog.md`，提取与本次变更相关的审计行。
+   - **生成审计副本**: 在 `openspec/operations/archive/YYYY-MM-DD-<name>/` 下创建 `ops_changelog.md`。
+   - **决策结转 (ADR Archive)**: 如果本次变更有关联的 `openspec/decisions/` 文件，将其移动至 `openspec/decisions/archive/`。
+   - **内容注入**: 将提取的审计日志写入该 `ops_changelog.md`，并确保链接指向正确的 `decisions/archive/` 路径。
+   - **活跃日志清理**: 标记或移除当前 `.gemini/ops_changelog.md` 中已归档的行。
 
 6. **Display summary**
 

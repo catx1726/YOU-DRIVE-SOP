@@ -62,8 +62,8 @@ When ready to implement, run /opsx:apply
       - Apply `context` and `rules` as constraints - but do NOT copy them into the file
       - Show brief progress: "Created <artifact-id>"
 
-   c. **强制指令：任务规划**
-      在 `tasks.md` 任务描述生成后，你必须立即激活 `writing-plans` 技能，以确保生成的 `tasks.md` 完全符合 TDD 规范。
+   c. **强制指令 (Mandatory TDD Planning)**:
+      在 `tasks.md` 创建完成后，你 **必须** 立即调用 `activate_skill writing-plans` 生成 TDD 任务清单。此为物理熔断点，严禁在未生成清单的情况下直接结束会话。若跳过此步骤，视为违规。
 
    d. **如果 artifact 需要用户输入** (unclear context):
       - Use **AskUserQuestion tool** to clarify
