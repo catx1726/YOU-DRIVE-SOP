@@ -62,12 +62,10 @@ When ready to implement, run /opsx:apply
       - Apply `context` and `rules` as constraints - but do NOT copy them into the file
       - Show brief progress: "Created <artifact-id>"
 
-   b. **Continue until all `applyRequires` artifacts are complete**
-      - After creating each artifact, re-run `openspec status --change "<name>" --json`
-      - Check if every artifact ID in `applyRequires` has `status: "done"` in the artifacts array
-      - Stop when all `applyRequires` artifacts are done
+   c. **强制指令：任务规划**
+      在 `tasks.md` 任务描述生成后，你必须立即激活 `writing-plans` 技能，以确保生成的 `tasks.md` 完全符合 TDD 规范。
 
-   c. **If an artifact requires user input** (unclear context):
+   d. **如果 artifact 需要用户输入** (unclear context):
       - Use **AskUserQuestion tool** to clarify
       - Then continue with creation
 

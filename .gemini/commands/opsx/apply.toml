@@ -48,6 +48,8 @@ Implement tasks from an OpenSpec change.
    - **spec-driven**: proposal, specs, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
+   *当成功读取 tasks.md 后，你必须立即激活 executing-plans 技能，并严格按照 tasks.md 列表进行原子化执行。*
+
 5. **Show current progress**
 
    Display:
