@@ -13,7 +13,21 @@ mode: step-by-step
 
 ### 0. Physical Security & Git Isolation (Mandatory)
 - [ ] **物理隔离注入**：
-  - **ACTION**：在子库 `.gitignore` 中强制追加忽略：`.gemini/skills/`, `.gemini/commands/`, `patterns/`, `openspec/specs/`, `ARCHITECTURE.md`, `global_standard.md`, `GETTING_STARTED.md`, `SOP_CORE_MANUAL.md`, `GEMINI.md`。
+  - **ACTION**：检测子库根目录 `.gitignore`。
+  - **INJECTION**：物理追加（防止 Git 穿透删除）：
+    ```text
+    # YOU-DRIVE-SOP Physical Links
+    .gemini/skills/
+    .gemini/commands/
+    patterns/
+    openspec/specs/
+    .gemini/link.json
+    ARCHITECTURE.md
+    global_standard.md
+    GETTING_STARTED.md
+    SOP_CORE_MANUAL.md
+    GEMINI.md
+    ```
   - **VERIFICATION**：运行 `git check-ignore ARCHITECTURE.md` 确认生效。
 
 ### 1. Linking Strategy (Primary Enforcement)
@@ -24,7 +38,7 @@ mode: step-by-step
     3.  **DIRECTORY**: `patterns/`
     4.  **DIRECTORY**: `openspec/specs/`
     5.  **FILE**: `ARCHITECTURE.md`
-    6.  **FILE**: `global_standard.md` (Target: `.gemini/global_standard.md`)
+    6.  **FILE**: `global_standard.md`
     7.  **FILE**: `GETTING_STARTED.md`
     8.  **FILE**: `SOP_CORE_MANUAL.md`
     9.  **FILE**: `GEMINI.md`
@@ -33,13 +47,16 @@ mode: step-by-step
   - **FALLBACK (Copy)**：若因跨分区、权限或文件系统不支持导致链接失败，AI **必须** 自动降级执行 `Copy-Item -Recurse`。
   - **REPORT**：AI **必须** 向用户明确报告物理状态：`[LINKED (实时同步)]` 或 `[COPIED (静态副本)]`。
 
-### 2. Dashboard Activation (GEMINI.md)
-- [ ] **挂载看板**：优先尝试 `HardLink` 链接母库 `GEMINI.md`。若失败则执行物理拷贝或本地化生成。
+### 2. Identity Injection (Workshop Status)
+- [ ] **物理身份写入**：在子库根目录创建 `role.json`。
+  - **CONTENT**: `{"role": "workshop", "foundry_link": "{{FOUNDRY_ROOT}}", "status": "operational"}`
+- [ ] **AI 身份觉醒**: AI 在启动会话时，**必须**首先读取 `role.json`。
+- [ ] **角色报告 (Mandatory)**：若检测到 `role: "workshop"`，AI **必须**向用户物理确认：“我当前位于 Workshop 子库，通过 Junction 挂载了母库资产，已准备好执行标准 SOP 2.0 任务。”
 
-### 3. Handshake & Awareness
-- [ ] **架构感知激活**：执行 `read_file ARCHITECTURE.md`。
-- [ ] **注入规约意识**：向用户报告：“已建立母库映射。我已理解 SOP 2.0 的 Skeleton-Muscle 模型与 13 步生产协议。”
-- [ ] **物理闭环自检**：输出 Markdown 表格，列出同步成功的规约清单。
+### 3. Final Synthesis & Handover
+- [ ] **物理重载 (Force Registry Reload)**: AI **必须**告知用户：『初始化完成，为了使新的 Skill 和 Command 生效，请物理重启会话 (运行 `/exit` 后重新执行 `gemini`)。』
+- [ ] **规约审计清单**：输出 Markdown 表格，列出当前子库已通过链接感知的全量规约清单。
+- [ ] **交互式引导**：询问：『您是想：A) 扫描旧项目 (提纯) 还是 B) 开发新功能 (Apply)？』
 
 ---
 *YOU-DRIVE-SOP - 驱动规约，掌握智力。*

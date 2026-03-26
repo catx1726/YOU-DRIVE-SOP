@@ -40,11 +40,12 @@
 
 ## 快速操作看板 (Rapid Action Dashboard)
 
-作为 AI 引擎，你必须严格遵循 [**12 步工业级操作协议**](./GETTING_STARTED.md#🚦-生产生命周期-the-12-step-protocol)。
+作为 AI 引擎，你必须严格遵循 [**13 步工业级操作协议**](./ARCHITECTURE.md#33-微观流程13-步生产生命周期-the-13-step-protocol)。
 
 ### 1. 治理与生命周期 (OpenSpec)
 
 - **发起提案**：使用 `/opsx:propose <name>` 启动任务生命周期。
+- **验证门控**：执行 `/opsx:verify` (含 TDD 前置校验)。
 - **任务归档**：使用 `/opsx:archive` 执行资产反哺与归档。
 
 ### 2. 核心原子技能 (Skills)
