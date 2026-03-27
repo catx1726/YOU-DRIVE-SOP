@@ -9,10 +9,9 @@ Implement tasks from an OpenSpec change.
 
 1. **Select the change**
 
-   If a name is provided, use it. Otherwise:
-   - Infer from conversation context if the user mentioned a change
-   - Auto-select if only one active change exists
-   - If ambiguous, run `openspec list --json` to get available changes and use the **AskUserQuestion tool** to let the user select
+   - If a name is provided, use it.
+   - If omitted or ambiguous, **always run `openspec list --json`** to get available changes and use the **AskUserQuestion tool** to let the user select. This is the mandatory method for resolving ambiguity.
+   - Auto-selection is NOT permitted when context is vague.
 
    Always announce: "Using change: <name>" and how to override (e.g., `/opsx:apply <other>`).
 
@@ -41,15 +40,9 @@ Implement tasks from an OpenSpec change.
    - If `state: "all_done"`: congratulate, suggest archive
    - Otherwise: proceed to implementation
 
-4. **Read context files**
-
-   Read the files listed in `contextFiles` from the apply instructions output.
-   The files depend on the schema being used:
-   - **spec-driven**: proposal, specs, design, tasks
-   - Other schemas: follow the contextFiles from CLI output
-
-4. **强制指令 (Mandatory Execution Linkage)**:
+4.5 **强制指令 (Mandatory Execution Linkage)**:
    当成功读取 `tasks.md` 后，你 **必须** 立即激活 `activate_skill executing-plans`。在此之后，你必须严格按清单逐项执行，严禁进入非受控的 shell 自由交互模式。此强制链路若被跳过，则视为严重的操作逻辑违规。
+   *This command primarily handles steps 4-6 of the 13-Step Production Lifecycle Protocol (Plan & Act).*
 
 5. **Show current progress**
 

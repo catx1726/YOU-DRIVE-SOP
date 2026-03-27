@@ -2,25 +2,29 @@ schema: spec-driven
 
 # Runtime environment for sub-repos
 runtime:
+  # AI MUST scan project-specific config files (e.g., package.json, build.gradle, Cargo.toml)
+  # to determine the correct test and lint commands for the specific project.
+  # The defaults below are placeholders and should be overridden.
   test_command: "npm test" # Default for frontend; AI MUST scan and update this per project
-  lint_command: "npm run lint"
+  lint_command: "npm run lint" # Default for frontend; AI MUST scan and update this per project
 
 # Project context (High-density SOP 2.0 alignment)
-context: |
+context: | # Aligns with the "Four-Layer Governance" framework detailed in SOP_CORE_MANUAL.md
   This project follows the YOU-DRIVE-SOP framework.
-  - Test Entry: Execute '{{TEST_COMMAND}}' before any manual verification.
+  - Test Entry: Execute '{{TEST_COMMAND}}' before any manual verification, adhering to TDD and debugging protocols from ARCHITECTURE.md and SOP_CORE_MANUAL.md.
   - Security Mandate: All modifications through 'meta-safe-executor'.
+
 
 # Per-artifact rules
 rules:
   tasks:
     - Each implementation task MUST include a 'Validation' step.
     - Reference the 'meta-safe-executor' skill for any destructive operations.
-    - "Integrity Check: Every task list MUST start with '## 1. 规约与环境自检 (Mandatory Setup)' including branch check and audit logs."
+    - "Integrity Check: Every task list MUST start with '## 1. 规约与环境自检 (Mandatory Setup)' including branch check and audit logs. This strict structure is mandated by the 'Step-before-read' and 'Audit-First' protocols in SOP_CORE_MANUAL.md."
     - "Integrity Check: Every task list MUST end with 'Process Compliance Verification' (Logs, Language, PR)."
   proposal:
     - Automatically create a GitHub Issue if none exists, or link to current issue.
-    - "Automation: 'git checkout -b issue-N' MUST be done before implementation."
+    - "Automation: 'git checkout -b issue-N' MUST be done before implementation. This adheres to branch isolation rules defined in ARCHITECTURE.md."
   archive:
     - Closure: Automatically generate PR description and link to archived assets.
     - Decision: Mandatory creation of ADR in 'openspec/decisions/' during archive.

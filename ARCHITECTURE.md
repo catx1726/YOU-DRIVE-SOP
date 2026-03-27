@@ -106,9 +106,9 @@ graph LR
     Verify --> Refeed[归档入库/Foundry]
 ```
 
-### 3.3 微观流程：13 步生产生命周期 (The 13-Step Protocol)
+### 3.3 微观流程：13 步生产生命周期 (The 13-Step Protocol) - **优化版**
 
-描述一个任务从需求探索到代码合并的全流程物理轨迹，深度融合 Superpowers 以确保工程质量。
+描述一个任务从需求探索到代码合并的全流程物理轨迹，深度融合 Superpowers 以确保工程质量，并明确人机交互与错误处理。
 
 ```mermaid
 sequenceDiagram
@@ -119,28 +119,51 @@ sequenceDiagram
     participant F as Foundry (母库)
 
     Note over D, AI: 1-3. 启动阶段 (Launch)
-    AI->>AI: activate_skill brainstorming (需求探索)
-    D->>VCS: gh issue create (需求固化)
-    AI->>VCS: git checkout -b issue-N (分支隔离)
+    AI->>AI: activate_skill brainstorming (需求探索)<br/><i>(AI 暂停，等待 Driver 确认初步方案)</i>
+    D->>AI: 提供 Issue ID (通过 gh issue create 后通知/输入)
+    AI->>VCS: git checkout -b issue-N (分支隔离)<br/><i>(若失败，AI 报告给 Driver，等待指示)</i>
 
     Note over AI, VCS: 4-6. 计划与执行 (Plan & Act)
-    AI->>AI: /opsx:propose (提案 & `writing-plans` 填充 tasks.md)
-    AI->>AI: /opsx:apply (读取 tasks.md & `executing-plans`)
-    AI->>AI: activate_skill meta-safe-executor (安全审计)
+    AI->>AI: /opsx:propose (生成提案)<br/><i>(AI 暂停，等待 Driver 批准 tasks.md & writing-plans)</i>
+    AI->>AI: /opsx:apply (读取 tasks.md & executing-plans)<br/><i>(若执行失败，AI 重试/升级给 Driver)</i>
+    AI->>AI: activate_skill meta-safe-executor (安全审计)<br/><i>(若检测到风险，AI 报告给 Driver，等待指令)</i>
 
     Note over AI, D: 7-9. 质量与验证 (Test & Verify)
-    AI->>AI: activate_skill test-driven-development (TDD 循环)
-    AI->>AI: /opsx:verify (前置守卫: 自动执行测试, 然后规约比对)
-    AI->>AI: activate_skill verification-before-completion (产出物证据)
+    AI->>AI: activate_skill test-driven-development (TDD 循环)<br/><i>(遇歧义时，AI 进入“等待 Driver 问询/澄清”状态)</i>
+    AI->>AI: /opsx:verify (前置守卫)<br/><i>(AI 报告验证结果，若失败则修正/升级给 Driver)</i>
+    AI->>AI: activate_skill verification-before-completion (产出物证据)<br/><i>(AI 向 Driver 呈现证据摘要)</i>
 
     Note over AI, F: 10-13. 提纯与闭环 (Distill & Close)
-    AI->>AI: activate_skill meta-distiller (资产提纯至 Staging)
-    AI->>AI: /opsx:archive (任务归档 & `writing-skills` 编写新技能)
-    AI->>VCS: gh pr create/merge (PR 合并)
-    AI->>VCS: gh issue close (Issue 关闭)
+    AI->>AI: activate_skill meta-distiller (资产提纯)<br/><i>(AI 暂存结果，等待 Driver 审查/Accept 提纯资产)</i>
+    AI->>AI: /opsx:archive (任务归档)<br/><i>(AI 报告归档，等待 Driver 最终确认 PR/Issue 操作)</i>
+    AI->>VCS: gh pr create (创建 PR)
+    D->>VCS: gh pr merge (Driver 批准并合并 PR)
+    AI->>VCS: gh issue close (Issue 关闭)<br/><i>(仅在 PR 合并且 Driver 确认后执行)</i>
+
+    Note over AI: 14. 流程反馈与自我反思 (Feedback & Self-Reflection)
+    AI->>AI: perform_self_reflection & update_ops_changelog<br/><i>(总结执行情况，记录挑战，为智力演进提供输入)</i>
 ```
 
-> **铁律**：AI 引擎在执行任务时，必须在内心实时对齐这 13 个物理步骤，任何步骤的跳过均被视为对 SOP 2.0 规约的违背。
+> **铁律**：AI 引擎执行任务时，必须对齐此优化后的 14 步流程。任何偏离（AI 尝试跳过 Driver 审批、忽视错误升级、或未完成反思）均视为对 SOP 2.0 规约的违背。AI 必须在遇到模糊指令或流程中断时，主动寻求 Driver 的澄清或介入。
+
+---
+
+## 4. 角色定义 (Role Definitions)
+
+### 4.1 实验室管理员 (Foundry Manager)
+
+- **目标**: 维护母库（Foundry）、管理 Skills 与 Patterns。
+- **自演进模式**: 当修改母库自身时，管理员身份重叠为 Workshop Developer，必须通过本地 OpenSpec 流程提交变更。
+
+### 4.2 资产收割员 (Workshop Developer)
+
+- **目标**: 在业务项目中引用母库智力，并识别、上报高价值逻辑。
+- **核心工具**: 使用 `meta-distiller` 进行逻辑脱水。
+
+### 4.3 AI 引擎 (SOP Engine)
+
+- **目标**: 在规约框架内执行任务，并根据 Driver 的指令进行协作与回退。
+- **强制逻辑**: 必须通过 [CRITICAL-BOOT-SEQUENCE] 完成初始化，并在 14 步生命周期内严格遵循 Driver 的审批与指导。
 
 ---
 

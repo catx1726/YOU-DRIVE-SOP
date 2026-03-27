@@ -9,7 +9,7 @@
 如果您是第一次进入本工作区，请根据您的身份执行初始化动作。关于各角色的详细职责，请参阅 [**ARCHITECTURE.md#5-角色定义**](./ARCHITECTURE.md#5-角色定义)。
 
 - **实验室管理员 (Foundry Manager)**：输入 `activate_skill foundry-initializing` 补全所有核心规约。
-- **资产收割员 (Workshop Developer)**：输入 `activate_skill workshop-initializing` 建立物理链路。
+- **资产收割员 (Workshop Developer)**：输入 `activate_skill workshop-initializing` 来初始化 Workshop 环境。此过程将通过文件拷贝机制将母库核心资产复制到本地工作区，以规避环境限制。
 - **AI 引擎 (SOP Engine)**：请立即执行下方的 **[CRITICAL-BOOT-SEQUENCE]**。
 
 ---
@@ -22,7 +22,7 @@
    - 1. READ Tier-1 (宪法): `read_file .gemini/global_standard.md`
    - 2. READ Tier-2 (架构真值源): `read_file ARCHITECTURE.md`
    - 3. READ Tier-3 (运行配置): `read_file openspec/config.yaml` && `read_file .gemini/commands/opsx/*.toml`
-2. **架构感知**：检测 `.gemini/global_standard.md` 与 `link.json`。
+2. **架构感知**：检测 `.gemini/global_standard.md`。
    - **汇报**：『✓ 已识别当前工作区角色为 [Foundry/Workshop]。』
 3. **状态检查**：若环境缺失核心规约，立即提示用户执行初始化。
 4. **分支校验**：确认当前处于 Issue 分支而非 `main`。
@@ -40,7 +40,7 @@
 
 ## 快速操作看板 (Rapid Action Dashboard)
 
-作为 AI 引擎，你必须严格遵循 [**13 步工业级操作协议**](./ARCHITECTURE.md#33-微观流程13-步生产生命周期-the-13-step-protocol)。
+作为 AI 引擎，你必须严格遵循 [**13 步生产协议**](./ARCHITECTURE.md#33-微观流程13-步生产生命周期-the-13-step-protocol)。
 
 ### 1. 治理与生命周期 (OpenSpec)
 

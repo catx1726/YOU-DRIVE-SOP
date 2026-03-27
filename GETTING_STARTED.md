@@ -1,127 +1,94 @@
-# YOU-DRIVE-SOP 2.0 工业级操作手册
+# GETTING STARTED (快速上手)
 
-> **"Standardization, Specification, Process, Automation, Sharing."**
+欢迎来到 YOU-DRIVE-SOP 2.0 的世界！本指南将帮助您快速启动、理解项目运作，并开始贡献。
 
-本手册定义了 YOU-DRIVE-SOP 2.0 体系下的标准基础设施搭建与 12 步生产生命周期。
+## 1. 角色识别与环境准备
 
----
+在开始任何操作之前，请您先确认您在本 SOP 体系中的角色：
 
-## 基础设施搭建 (Foundry & Workshop Setup)
-
-1.  **Clone 本库 (母库)**：
-    ```bash
-    git clone git@github.com:catx1726/YOU-DRIVE-SOP.git foundry
-    ```
-2.  **全局安装 OpenSpec**：
-    ```bash
-    npm install -g @fission-ai/openspec@latest
-    ```
-3.  **子库初始化引擎**：进入业务项目，执行： `bash     openspec init     ` _✓ 物理产出：生成 `openspec/config.yaml`（初始为空白文件）。_
-
-4.  **物理自举链接**：由于子库尚未链接母库，AI 此时无法感知技能。您**必须**手动执行以下指令来建立初步联系： `bash     gemini skills link <FOUNDRY_PATH>/.gemini/skills --scope workspace --consent     ` _注：`<FOUNDRY_PATH>` 是您在第 1 步中 Clone 的母库绝对路径。_
-
-### 🧱 物理安全红线 (Safety Gate)
-
-**在执行下一步前，请确保子库已配置 `.gitignore`。** 若子库使用 Git 管理，**必须**忽略以下路径：
-
-- `.gemini/skills/`
-- `patterns/`
-- `.gemini/link.json` _⚠️ 警告：如果不配置忽略规则，Git 在切换分支时可能会尝试删除这些物理链路，并极易穿透链路导致母库源文件被物理销毁。_
-
-4.  **子库物理对齐 (Handshake)**：在子库执行： `bash     activate_skill workshop-initializing     `
-
-        _✓ 逻辑：建立物理链路 (Junction)，将母库的以下资产挂载至子库：_
-        - `openspec\config.yaml`：读取母库 `config_foundry.yaml` 并 Deep Merge。
-        - `openspec\schemas\`：同步全量协议模板。
-        - `openspec\specs\`：递归同步全量治理规约。
-        - `GEMINI.md`：注入「🚀 快速操作看板」。
-        - `AGENTS.md` & `global_standard.md`：同步代理定义与物理宪法。
-        - `.gemini\skills` & `patterns/`：挂载全量技能与图纸库。
-        - _链路存根：生成 `.gemini/link.json` 记录母库物理绝对路径。_
+- **Foundry Manager (实验室管理员)**: 负责维护母库（Foundry）的核心资产（Skills, Patterns）。
+- **Workshop Developer (资产收割员)**: 负责在子库（Workshop）中应用母库资产，并识别、反馈可提炼的逻辑。
+- **AI 引擎 (SOP Engine)**: 我将协助您完成大部分任务。
 
 ---
 
-## 生产生命周期 (The 13-Step Protocol)
+## 2. Workshop 初始化流程 (Workshop Initialization Flow)
 
-**标准流 (13-Step Abstract Flow):** `Launch -> Issue -> Branch -> Propose -> Apply -> TDD -> Safety-Audit -> Verify -> Distill -> Archive -> PR -> Merge -> Close`
+当您克隆母库（Foundry）后，作为 Workshop Developer，您需要按照以下流程来设置您的子库（Workshop）环境，使其能够正确获取母库的核心资产，并理解项目的架构、流程与规范。
 
-1.  **需求探索 (Brainstorm)**：执行 `activate_skill brainstorming`。识别业务逻辑中的“资产贡献点”。
-2.  **需求固化 (Issue)**：使用 `gh issue create` 创建 Issue，记录原始需求并获得唯一 ID。
-3.  **分支隔离 (Branch)**：执行 `git checkout -b issue-N` (或 `task/N`)，**严禁**在 `main` 分支执行任何开发。
-4.  **提案 (Propose)**：执行 `/opsx:propose`，激活 `writing-plans` 技能，生成 `tasks.md`，并确保包含强制性的“规约与环境自检”步骤。
-5.  **执行内环 (Apply-Act)**：执行 `/opsx:apply`，激活 `executing-plans` 技能读取 `tasks.md` 按序执行任务。
-6.  **TDD 循环 (Test)**：在执行每个任务时，激活 `test-driven-development`，执行“红-绿-重构”测试循环。
-7.  **安全审计 (Audit)**：任何文件修改前激活 `meta-safe-executor`，在 `.gemini/ops_changelog.md` 中物理留痕。
-8.  **自我验证 (Verification)**：激活 `verification-before-completion`，在提交前产出验证证据（Logs/Diff）。
-9.  **规约验证 (Verify)**：执行 `/opsx:verify`。系统将首先执行 `openspec/config.yaml` 定义的 `test_command`，通过后再执行手动的规约比对。
-10. **资产提纯 (Distill)**：**[归档前置]** 激活 `activate_skill meta-distiller`，将通用逻辑脱水提取至 `.gemini/distill_stage/`。
-11. **归档 (Archive)**：使用 `/opsx:archive` 固化本次变更记录，并激活 `writing-skills` 将提纯成果转化为新的母库技能。
-12. **发起评审 (PR)**：使用 `gh pr create` 发起评审，等待 CI/CD 自动通过 `pr_summary.yml` 的合规性校验。
-13. **闭环 (Merge/Close)**：使用 `gh pr merge` 合并代码，`gh issue close` 关闭 Issue。
+### 2.1 操作流程图 (详细版)
 
----
+以下流程图详细描绘了从克隆仓库到 Workshop 环境准备就绪的关键步骤，包括具体指令、操作角色以及潜在问题和解决方案：
 
-## 日常维护 (Daily Maintenance)
+```mermaid
+graph TD
+    A["用户/Workshop Dev: git clone Foundry"] --> B{识别角色}
+    B -- Foundry Manager --> C["Foundry Manager: 执行 Foundry 初始化流程"]
+    B -- Workshop Developer --> D["Workshop Dev / AI Engine: 运行 activate_skill workshop-initializing"]
+    D --> E["AI Engine: 执行资产拷贝 (Copy-Item -Recurse)"]
+    E --> F["AI Engine: 报告 [COPIED (静态副本)] 状态"]
+    F --> G["AI Engine: 读取拷贝的核心文档 (ARCHITECTURE.md, GEMINI.md 等)"]
+    G --> H["AI Engine: 提示用户选择下一步"]
+    H --> I{Workshop Developer: 选择}
+    I -- 开发 --> J["AI Engine: 遵循 13 步协议执行任务"]
+    I -- 收割 --> K["AI Engine: 遵循收割逻辑"]
 
-### 同步母库最新智力 (Foundry Sync)
+    %% Potential Issues Branch
+    E --> Z1["潜在问题: 拷贝失败"]
+    Z1 --> Z2["解决方案: AI 报告错误，重试或提示手动干预"]
+    G --> Z3["潜在问题: AI 无法读取/解析文档"]
+    Z3 --> Z4["后果: 子库无法理解架构/流程/规范"]
+    Z4 --> Z5["解决方案: AI 检查读取权限，用户检查文件完整性"]
+    E --> Z6["潜在问题: 拷贝的资产不完整或过时"]
+    Z6 --> Z7["解决方案: AI 执行校验，建议执行 workshop-sync"]
 
-如果您处于 **Copied (静态副本)** 模式，或者母库发布了新的元规约，请执行以下指令进行增量对齐：
+    %% Styling
+    classDef normal fill:#dcf1fd,stroke:#333,stroke-width:1px
+    classDef decision fill:#fcf,stroke:#333,stroke-width:1px
+    classDef issue fill:#f99,stroke:#f00,stroke-width:2px
 
-```bash
-activate_skill workshop-sync
+    class A,B,D,E,F,G,H,I,J,K normal
+    class C,Z2,Z5,Z7 decision
+    class Z1,Z3,Z4,Z6 issue
 ```
 
-_✓ 物理逻辑：系统将从 `link.json` 定义的路径执行增量拉取（`xcopy /D`），仅更新较新或缺失的 Skills 和 Patterns，不会破坏您的本地业务代码。_
+### 3. 流程详解与问题排查
 
----
+- **步骤 1: 克隆母库 (User/Workshop Dev)**
+  - **指令**: `git clone [Foundry 仓库 URL]`
+  - **目的**: 获取母库的完整代码和文档。
+- **步骤 2: 识别角色 (User/AI)**
+  - **AI 操作**: AI 启动后，会尝试读取 `role.json` (由 `workshop-initializing` 创建) 来识别当前环境的角色。
+  - **AI 报告**: `[Foundry]` 或 `[Workshop]`。
+- **Foundry Manager 初始化 (Foundry Manager)**
+  - **操作**: 遵循母库自身的初始化流程（可能包括运行 `foundry-initializing` 技能）。
+- **Workshop Developer 初始化 (Workshop Dev / AI Engine)**
+  - **操作**: Workshop Developer 运行 `activate_skill workshop-initializing`。
+  - **AI 引擎操作**:
+    - **执行资产拷贝**: AI 强制执行 `Copy-Item -Recurse`，将母库核心资产（如 Skills, Patterns, Core Docs）复制到 Workshop 的工作区内。
+    - **状态报告**: AI 报告 `[COPIED (静态副本)]` 状态。
+- **核心文档读取 (AI Engine)**
+  - **操作**: AI 尝试读取拷贝过来的核心文档（如 `ARCHITECTURE.md`, `GEMINI.md` 等）。
+  - **目的**: 使 AI 能够理解项目的架构、流程和规范。
+- **AI 提示用户选择 (AI Engine)**
+  - **AI 操作**: 根据初始化结果，AI 提示用户下一步操作：“开始收割 (Scan)” 或 “开发 (Develop)”。
+- **用户选择 (Workshop Developer)**
+  - **操作**: 用户根据项目需求选择“收割”或“开发”。
+- **后续流程**:
+  - **开发**: AI 遵循“13 步协议”执行开发任务。
+  - **收割**: AI 遵循扫描逻辑，识别可提炼的逻辑。
 
-## 故障排除 (Troubleshooting)
+### 4. 潜在问题与解决方案
 
-### 1. Windows 权限错误 (Access Denied / Error 5)
-
-在执行 `workshop-initializing` 建立物理链路时，若遇到权限报错：
-
-- **原因**：Windows 限制非管理员创建符号链接。
-- **方案**：进入 Windows **设置 > 隐私和安全性 > 面向开发人员**，开启 **“开发人员模式”**。
-
-### 2. 路径感应失败 (Path Discovery)
-
-若 AI 无法自动定位母库：
-
-- **方案**：手动在子库根目录创建 `.gemini/link.json`，内容为：`{"foundry_root": "C:\\绝对路径\\TO\\FOUNDRY"}`。
-
----
-
-## 递归模式与母库自演进 (Recursive Mode & Self-Evolution)
-
-当您作为**母库管理员**需要修改母库本身的 Skills、Patterns 或治理规约时，系统支持将其作为自身的 Workshop 进行自演进。
-
-### 1. 配置本地母库为同步源
-
-在母库根目录的 `.gemini/link.json` 中，确保路径指向自身（或在环境变量中定义）：
-
-```json
-{
-  "foundry_root": "."
-}
-```
-
-或使用绝对路径。
-
-### 2. 自演进操作流程
-
-在母库中执行变更时，**必须**遵循标准的 12 步协议，特别是：
-
-1. **Propose**: 使用 `/opsx:propose` 提交架构或技能变更提案。
-2. **Apply**: 在本地执行修改。
-3. **TDD**: 确保新编写的 Skill 或 Pattern 通过本地测试。
-4. **Distill & Archive**: 执行归档，将变更正式并入母库资产池。
-
-### 3. 陷阱规约 (Safety Guardrails)
-
-- **循环引用**: 在递归模式下执行 `workshop-sync` 时，系统会自动识别源与目标一致并跳过物理拷贝，以防文件损坏。
-- **分支隔离**: 即使是自演进，也严禁在 `main` 分支直接修改 `skills/`，必须通过 `issue-N` 分支进行治理流转。
-
----
-
-_YOU-DRIVE-SOP - 驱动规约，掌握智力。_
+- **Z1: 拷贝失败 (AI 执行资产拷贝时)**
+  - **问题**: AI 报告拷贝失败。
+  - **原因**: 可能是由于目标目录不存在、权限不足、磁盘空间不足、网络中断等。
+  - **解决方案**: AI 报告具体错误信息；用户检查环境（权限、磁盘空间、网络）；AI 尝试重试，或用户需手动干预（例如，手动创建目录、清理空间）。
+- **Z3: AI 无法读取/解析文档 (AI 读取核心文档时)**
+  - **问题**: AI 报告无法读取或解析已拷贝的核心文档。
+  - **原因**: AI 在其工作区内对已拷贝的核心文档没有读取权限；文件编码格式错误；文件损坏。
+  - **解决方案**: AI 检查工作区内对核心文档的读取权限；确保文件格式无误；用户检查文件完整性（例如，重新执行拷贝）。
+- **Z5: 拷贝的资产不完整或过时 (AI 执行资产拷贝后)**
+  - **问题**: 尽管拷贝报告成功，但发现资产不完整或不是最新版本。
+  - **原因**: 拷贝过程可能因某些原因中断；母库更新后子库未及时同步。
+  - **解决方案**: AI 需执行文件校验。若发现问题，建议用户确认母库的最新状态，并可能需要手动执行 `workshop-sync` 命令来拉取更新。

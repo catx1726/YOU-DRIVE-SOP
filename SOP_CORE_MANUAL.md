@@ -67,12 +67,13 @@ AI 的每一个动作都必须在物理上“有据可查”。
 1. **进度存根**：在 `.gemini/skill_progress.md` 中实时维护任务状态。
 2. **读回验证**：在执行长文档或代码生成的下一步前，必须显式 `read_file` 之前已完成的所有上下文，确保逻辑的一致性。
 
-### 1.4 物理安全锁 (Git Isolation Gate)
+### 1.4 资产安全与隔离 (Asset Safety & Isolation)
 
-针对 Windows 下 Junction 链路的物理穿透风险，系统确立了**隔离先行**原则：
+为了确保 Foundry 资产在 Workshop 环境中的完整性和安全性，系统遵循**“安全优先”**原则：
 
-- **强制忽略**：建立链路前，必须确保 `.gitignore` 已锁定 `.gemini/skills/` 和 `patterns/`。
-- **防止误删**：杜绝因 Git 切换分支导致的母库文件物理消失。
+-   **强制忽略 (Git Ignore)**：在 Workshop 初始化或同步时，确保 `.gitignore` 正确配置，以忽略不应直接包含在 Workshop Git 仓库中的 Foundry 核心资产（例如，`.gemini/skills/`, `patterns/`, `.gemini/link.json` - 即使 link.json 记录的是逻辑路径，也不应将其纳入 Workshop 版本控制）。这有助于防止 Git 意外地管理或删除这些指向母库的（现在是逻辑上的）引用，并避免潜在的冲突。
+-   **防止误操作**: 强调在 Git 切换分支或执行清理命令时，需谨慎操作，防止意外丢失或损坏从母库拷贝过来的关键资产。
+
 
 ---
 

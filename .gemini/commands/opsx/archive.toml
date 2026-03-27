@@ -9,7 +9,8 @@ Archive a completed change in the experimental workflow.
 
 1. **If no change name provided, prompt for selection**
 
-   Run `openspec list --json` to get available changes. Use the **AskUserQuestion tool** to let the user select.
+   - **Always run `openspec list --json`** to get available changes. Use the **AskUserQuestion tool** to let the user select. This is the mandatory method for resolving ambiguity.
+   - Auto-selection is NOT permitted when context is vague.
 
    Show only active changes (not already archived).
    Include the schema used for each change if available.
@@ -57,23 +58,6 @@ Archive a completed change in the experimental workflow.
 
    If user chooses sync, use Task tool (subagent_type: "general-purpose", prompt: "Use Skill tool to invoke openspec-sync-specs for change '<name>'. Delta spec analysis: <include the analyzed delta spec summary>"). Proceed to archive regardless of choice.
 
-5. **Perform the archive**
-
-   Create the archive directory if it doesn't exist:
-   ```bash
-   mkdir -p openspec/changes/archive/governance
-   ```
-
-   Generate target name using current date: `YYYY-MM-DD-<change-name>`
-
-   **Category Decision (SOP 2.0 Exclusive)**:
-   - **Governance**: If the change modifies `.gemini/`, `openspec/`, or core framework docs (`ARCHITECTURE.md`, `SOP_CORE_MANUAL.md`).
-   - **Business**: Default category.
-
-   **Relocation**:
-   - Governance: `mv openspec/changes/<name> openspec/changes/archive/governance/YYYY-MM-DD-<name>`
-   - Business: `mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>`
-
 5.5 **审计日志结转 (Audit Handover - SOP 2.0 Exclusive)**
 
    在物理移动完成后，你 **必须** 执行以下动作：
@@ -82,8 +66,9 @@ Archive a completed change in the experimental workflow.
    - **决策结转 (ADR Archive)**: 如果本次变更有关联的 `openspec/decisions/` 文件，将其移动至 `openspec/decisions/archive/`。
    - **内容注入**: 将提取的审计日志写入该 `ops_changelog.md`，并确保链接指向正确的 `decisions/archive/` 路径。
    - **活跃日志清理**: 标记或移除当前 `.gemini/ops_changelog.md` 中已归档的行。
+   *This command primarily handles steps 10-13 of the 13-Step Production Lifecycle Protocol (Distill & Close).*
 
-6. **Display summary**
+6. **Display summary
 
    Show archive completion summary including:
    - Change name
