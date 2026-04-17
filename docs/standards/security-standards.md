@@ -85,3 +85,5 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 ## 许可证
 
 本标准采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 发布。
+
+**来源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

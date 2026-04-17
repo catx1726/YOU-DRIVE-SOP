@@ -943,3 +943,5 @@ Content-Security-Policy: default-src 'none'
 ## 授权
 
 本标准以 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权发布。
+
+**来源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
